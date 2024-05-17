@@ -164,7 +164,7 @@ const CoinsTable = ({ history, data, location }: Props) => {
       </Table>
       <BetDetailModal
         isOpened={isOpened}
-        setIsOpened={(b) => setIsOpened(b)}
+        setIsOpened={(b: boolean) => setIsOpened(b)}
         detailData={betDetail}
       />
     </>

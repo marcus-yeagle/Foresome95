@@ -16,7 +16,7 @@ import ShakeIcon from '../../assets/img/shake.png';
 
 type Props = RouteComponentProps<{}>;
 
-const NavBar = (props: Props) => {
+const NavBar = (props: any) => {
   const currentLocation = props.location.pathname;
   return (
     <Nav position="fixed">
