@@ -2933,7 +2933,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     font-style: normal
   }
   html {
-    font-size: ${({fontSize:e})=>`${e*16}px`};
+    font-size: ${({fontSize:e})=>`${e*12}px`};
   }
   html, body, #root {
     height: 100%;
