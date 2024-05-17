@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "date": "2024-11-17",
     "betType": "Matchup",
     "players": [
       {
@@ -24,6 +25,7 @@
   },
   {
     "id": 2,
+    "date": "2024-11-17",
     "betType": "Gross Score",
     "players": [
       {
@@ -42,6 +44,7 @@
   },
   {
     "id": 3,
+    "date": "2024-11-17",
     "betType": "Gross Score",
     "players": [
       {
@@ -60,6 +63,7 @@
   },
   {
     "id": 4,
+    "date": "2024-11-17",
     "betType": "Group Net Winner",
     "players": [
       {
@@ -75,6 +79,7 @@
   },
   {
     "id": 5,
+    "date": "2024-11-17",
     "betType": "Group Net Winner",
     "players": [
       {
@@ -90,6 +95,7 @@
   },
   {
     "id": 6,
+    "date": "2024-11-17",
     "betType": "Group Net Winner",
     "players": [
       {
@@ -105,6 +111,7 @@
   },
   {
     "id": 7,
+    "date": "2024-11-17",
     "betType": "Group Net Winner",
     "players": [
       {
@@ -120,6 +127,7 @@
   },
   {
     "id": 8,
+    "date": "2024-11-17",
     "betType": "Proposition",
     "players": [],
     "score": null,

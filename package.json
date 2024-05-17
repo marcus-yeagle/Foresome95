@@ -19,6 +19,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
     "array-move": "^2.1.0",
     "assert-never": "^1.2.1",
     "axios": "^1.6.8",
