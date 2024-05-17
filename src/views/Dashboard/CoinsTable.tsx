@@ -105,7 +105,7 @@ const CoinsTable = ({ history, data, location }: Props) => {
   console.log(SidesData);
   let sideTableData = SidesData.map((sideData, i) => {
     return (
-      <TableRow key={i} onClick={() => history.push(`/coins/${symbol}`)}>
+      <TableRow key={i} onClick={() => history.push(`/coins/`)}>
         <TableDataCell>{sideData.betType}</TableDataCell>
         <TableDataCell>{sideData.players.map((p) => p.name)}</TableDataCell>
         <TableDataCell style={{ textAlign: 'right' }}></TableDataCell>
