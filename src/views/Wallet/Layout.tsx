@@ -1,25 +1,25 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React from "react";
-import styled from "styled-components";
-import { Link, Route } from "react-router-dom";
-import { withRouter, RouteComponentProps } from "react-router";
-import arrayMove from "array-move";
-import { Divider, Toolbar } from "react95";
+import React from 'react';
+import styled from 'styled-components';
+import { Link, Route } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router';
+import arrayMove from 'array-move';
+import { Divider, Toolbar } from 'react95';
 import {
   SortableContainer,
   SortableElement,
   SortableHandle,
-} from "react-sortable-hoc";
+} from 'react-sortable-hoc';
 
-import { createMaterialStyles, formatCurrency } from "../../utils";
-import EditCoin from "./EditCoin";
-import Handle from "../../components/Handle/Handle";
-import MenuIcon from "../../components/MenuIcon/MenuIcon";
+import { createMaterialStyles, formatCurrency } from '../../utils';
+import EditCoin from './EditCoin';
+import Handle from '../../components/Handle/Handle';
+import MenuIcon from '../../components/MenuIcon/MenuIcon';
 
-import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
-import Well from "../../components/Well/Well";
-import WellContainer from "../../components/WellContainer/WellContainer";
-import LinkButton from "../../components/LinkButton/LinkButton";
+import CurrencySelect from '../../components/CurrencySelect/CurrencySelect';
+import Well from '../../components/Well/Well';
+import WellContainer from '../../components/WellContainer/WellContainer';
+import LinkButton from '../../components/LinkButton/LinkButton';
 
 const DragHandle = SortableHandle(Handle);
 const SortableItem = SortableElement(
@@ -90,7 +90,7 @@ const Layout = ({
           <section>
             <Avatar
               src={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ"
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ'
               }
             />
 
@@ -104,7 +104,7 @@ const Layout = ({
                     fullWidth
                     style={{ marginRight: 8 }}
                     to={{
-                      pathname: "/search",
+                      pathname: '/search',
                       state: {
                         from: location.pathname,
                       },
@@ -119,13 +119,13 @@ const Layout = ({
           </section>
           <div
             style={{
-              paddingLeft: "0.5rem",
-              fontSize: "0.9rem",
-              lineHeight: "1.5",
+              paddingLeft: '0.5rem',
+              fontSize: '0.9rem',
+              lineHeight: '1.5',
             }}
           >
             <p style={{ lineHeight: 1.5 }}>
-              <b style={{ fontWeight: "bold" }}>Bill the Hustler</b>
+              <b style={{ fontWeight: 'bold' }}>Bill the Hustler</b>
             </p>
 
             <p>
@@ -140,7 +140,7 @@ const Layout = ({
         <div>
           <WellContainer>
             <Well>{new Date().toLocaleDateString()}</Well>
-            <Well style={{ flexShrink: 0, minWidth: 65, textAlign: "center" }}>
+            <Well style={{ flexShrink: 0, minWidth: 65, textAlign: 'center' }}>
               {data && `${data.length} coin(s)`}
             </Well>
           </WellContainer>
@@ -211,7 +211,7 @@ const Wrapper = styled.div`
 `;
 
 const Top = styled.div`
-  ${createMaterialStyles("full")}
+  ${createMaterialStyles('full')}
   box-shadow: rgba(0, 0, 0, 0.35) 4px 4px 10px 0px;
   margin-bottom: 4rem;
   padding-right: 2px;
@@ -275,7 +275,7 @@ const MainRow = styled.div`
   justify-content: space-between;
   align-items: center;
   height: auto;
-  ${createMaterialStyles("full")}
+  ${createMaterialStyles('full')}
   padding: 0.75rem 0.5rem;
   line-height: 1;
 `;

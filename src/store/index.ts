@@ -2,15 +2,12 @@ import {
   legacy_createStore as createStore,
   applyMiddleware,
   Action,
-} from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
-import rootReducer from "./reducers/rootReducer";
+} from 'redux';
+// import { composeWithDevTools } from "redux-devtools-extension";
+import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import rootReducer from './reducers/rootReducer';
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 // export type AppDispatch = typeof store.dispatch;
 export type AppState = ReturnType<typeof store.getState>;

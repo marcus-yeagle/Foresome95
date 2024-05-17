@@ -1,21 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import styled from "styled-components";
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import styled from 'styled-components';
 import {
   TableHead,
   TableBody,
   TableRow,
   TableHeadCell,
   TableDataCell,
-} from "react95";
-import FileIcon from "../../components/FileIcon/FileIcon";
-import FlexTable from "../../components/FlexTable/FlexTable";
-import { CoinsData, CoinsInfo } from "../../store/reducers/coins";
+} from 'react95';
+import FileIcon from '../../components/FileIcon/FileIcon';
+import FlexTable from '../../components/FlexTable/FlexTable';
+import { CoinsData, CoinsInfo } from '../../store/reducers/coins';
+import SidesData from '../../store/sides051124.json';
 
 // TODO: proper typing for router search params
-type OrderBy = "price" | "change" | "name";
+type OrderBy = 'price' | 'change' | 'name';
 type Props = RouteComponentProps<{
   orderBy: OrderBy;
 }> & {
@@ -25,13 +26,13 @@ type Props = RouteComponentProps<{
 const CoinsTable = ({ history, data, location }: Props) => {
   const handleChangeOrder = (orderBy: OrderBy) => {
     const currentSearchParams = new URLSearchParams(history.location.search);
-    const currentOrderBy = currentSearchParams.get("orderBy") as OrderBy;
+    const currentOrderBy = currentSearchParams.get('orderBy') as OrderBy;
     let desc;
 
     if (currentOrderBy === orderBy) {
-      desc = !(currentSearchParams.get("desc") === "true" ? true : false);
+      desc = !(currentSearchParams.get('desc') === 'true' ? true : false);
     } else {
-      desc = orderBy === "name" ? false : true;
+      desc = orderBy === 'name' ? false : true;
     }
 
     const location = {
@@ -43,18 +44,18 @@ const CoinsTable = ({ history, data, location }: Props) => {
   };
 
   const searchParams = new URLSearchParams(location.search);
-  let orderBy = searchParams.get("orderBy") as OrderBy;
-  let desc = searchParams.get("desc") === "false" ? -1 : 1;
+  let orderBy = searchParams.get('orderBy') as OrderBy;
+  let desc = searchParams.get('desc') === 'false' ? -1 : 1;
 
-  if (!location.search.includes("orderBy")) {
-    orderBy = "price";
+  if (!location.search.includes('orderBy')) {
+    orderBy = 'price';
     desc = 1;
   }
 
   const orderPairs = {
-    price: "PRICE",
-    change: "CHANGEPCT24HOUR",
-    name: "coinName",
+    price: 'PRICE',
+    change: 'CHANGEPCT24HOUR',
+    name: 'coinName',
   } as const;
 
   let tableData;
@@ -89,32 +90,49 @@ const CoinsTable = ({ history, data, location }: Props) => {
               {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
             </CoinName>
           </TableDataCell>
-          <TableDataCell style={{ textAlign: "right" }}>
+          <TableDataCell></TableDataCell>
+          <TableDataCell style={{ textAlign: 'right' }}>
             {PRICE.toFixed(2)}
           </TableDataCell>
-          <TableDataCell style={{ textAlign: "right" }}>
+          <TableDataCell style={{ textAlign: 'right' }}>
             {CHANGEPCT24HOUR.toFixed(2)}%
           </TableDataCell>
         </TableRow>
       );
     });
   }
+
+  console.log(SidesData);
+  let sideTableData = SidesData.map((sideData, i) => {
+    return (
+      <TableRow key={i} onClick={() => history.push(`/coins/${symbol}`)}>
+        <TableDataCell>{sideData.betType}</TableDataCell>
+        <TableDataCell>{sideData.players.map((p) => p.name)}</TableDataCell>
+        <TableDataCell style={{ textAlign: 'right' }}></TableDataCell>
+        <TableDataCell style={{ textAlign: 'right' }}></TableDataCell>
+      </TableRow>
+    );
+  });
+
   return (
     <Table>
       <TableHead>
         <TableRow>
-          <TableHeadCell onClick={() => handleChangeOrder("name")}>
-            Name
+          <TableHeadCell onClick={() => handleChangeOrder('name')}>
+            Type
           </TableHeadCell>
-          <TableHeadCell onClick={() => handleChangeOrder("price")}>
-            Price
+          <TableHeadCell onClick={() => handleChangeOrder('name')}>
+            Player(s)
           </TableHeadCell>
-          <TableHeadCell onClick={() => handleChangeOrder("change")}>
-            Change
+          <TableHeadCell onClick={() => handleChangeOrder('price')}>
+            Sides
+          </TableHeadCell>
+          <TableHeadCell onClick={() => handleChangeOrder('change')}>
+            Action
           </TableHeadCell>
         </TableRow>
       </TableHead>
-      <TableBody>{tableData}</TableBody>
+      <TableBody>{sideTableData}</TableBody>
     </Table>
   );
 };
@@ -145,11 +163,15 @@ const Table = styled(FlexTable)`
   }
   th:nth-child(2),
   td:nth-child(2) {
-    flex: 2;
+    flex: 4;
   }
 
   th:nth-child(3),
   td:nth-child(3) {
-    flex: 1.5;
+    flex: 1;
+  }
+  th:nth-child(4),
+  td:nth-child(4) {
+    flex: 1;
   }
 `;

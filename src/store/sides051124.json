@@ -1,0 +1,126 @@
+[
+  {
+    "betType": "Matchup",
+    "players": [
+      {
+        "name": "Hiers, Paul",
+        "indx": 3,
+        "tee": "black"
+      },
+      {
+        "name": "Sickles, Corey",
+        "indx": 11,
+        "tee": "blue"
+      }
+    ],
+    "score": null,
+    "action": null,
+    "sides": [
+      { "side": "Hiers", "action": 0 },
+      { "side": "Sickles", "action": -2.5 }
+    ],
+    "prop": ""
+  },
+  {
+    "betType": "Gross Score",
+    "players": [
+      {
+        "name": "Atkinson, John",
+        "indx": 3,
+        "tee": "blue"
+      }
+    ],
+    "score": 80,
+    "action": null,
+    "sides": [
+      { "side": "Over", "action": -110 },
+      { "side": "Under", "action": -110 }
+    ],
+    "prop": ""
+  },
+  {
+    "betType": "Gross Score",
+    "players": [
+      {
+        "name": "Taylor, Troy",
+        "indx": -2,
+        "tee": "black"
+      }
+    ],
+    "score": 68.5,
+    "action": null,
+    "sides": [
+      { "side": "Over", "action": -110 },
+      { "side": "Under", "action": -110 }
+    ],
+    "prop": ""
+  },
+
+  {
+    "betType": "Group Net Winner",
+    "players": [
+      {
+        "name": "Weiss, Frank",
+        "indx": 9,
+        "tee": "blue"
+      }
+    ],
+    "score": null,
+    "action": 150,
+    "sides": null,
+    "prop": ""
+  },
+  {
+    "betType": "Group Net Winner",
+    "players": [
+      {
+        "name": "Steele, Matt",
+        "indx": 9,
+        "tee": "blue"
+      }
+    ],
+    "score": null,
+    "action": 150,
+    "sides": null,
+    "prop": ""
+  },
+  {
+    "betType": "Group Net Winner",
+    "players": [
+      {
+        "name": "Westerheide, Pete",
+        "indx": 9,
+        "tee": "blue"
+      }
+    ],
+    "score": null,
+    "action": 150,
+    "sides": null,
+    "prop": ""
+  },
+  {
+    "betType": "Group Net Winner",
+    "players": [
+      {
+        "name": "Yeagle, Marcus",
+        "indx": 10,
+        "tee": "blue"
+      }
+    ],
+    "score": null,
+    "action": 150,
+    "sides": null,
+    "prop": ""
+  },
+  {
+    "betType": "Proposition",
+    "players": [],
+    "score": null,
+    "action": 150,
+    "sides": [
+      { "side": "Yes", "action": -110 },
+      { "side": "No", "action": -110 }
+    ],
+    "prop": "Gross Birdie on any 3 of the 5 par 3s"
+  }
+]

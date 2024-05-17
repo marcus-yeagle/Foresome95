@@ -1,17 +1,19 @@
-import React from "react";
-import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 
-import packageJSON from "../../../package.json";
+import packageJSON from '../../../package.json';
 
-import CoinsTable from "./CoinsTable";
+import CoinsTable from './CoinsTable';
 
-import Fullpage from "../../components/Fullpage/Fullpage";
-import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
-import LinkButton from "../../components/LinkButton/LinkButton";
+import Fullpage from '../../components/Fullpage/Fullpage';
+import ButtonSwitch from '../../components/ButtonSwitch/ButtonSwitch';
+import LinkButton from '../../components/LinkButton/LinkButton';
 
-import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-import { CoinsData, CoinsInfo } from "../../store/reducers/coins";
+import useLockBodyScroll from '../../hooks/useLockBodyScroll';
+import { CoinsData, CoinsInfo } from '../../store/reducers/coins';
+import MoneyIcon from '../../assets/img/money-trans.png';
+import SidesData from '../../store/sides051124.json';
 
 type Props = {
   data: (CoinsInfo[string] & CoinsData[string])[] | null;
@@ -31,21 +33,24 @@ const DashboardLayout = ({
   return (
     <Fullpage>
       <Header>
+        <img style={{ height: 42, opacity: 0.9 }} src={MoneyIcon} alt="icon" />
         <h1>
-          Coins
-          <span>95</span>
+          Fore
+          <span>some</span>
           <small>v{packageJSON.version}</small>
         </h1>
-        <LinkButton
-          to={{
-            pathname: "/search",
-            state: {
-              from: currentUrl,
-            },
-          }}
-        >
-          Search...
-        </LinkButton>
+        {!showingFollowing && (
+          <LinkButton
+            to={{
+              pathname: '/search',
+              state: {
+                from: currentUrl,
+              },
+            }}
+          >
+            Add +
+          </LinkButton>
+        )}
       </Header>
       <CoinsTableWrapper>
         <CoinsTable data={data} />
@@ -53,9 +58,9 @@ const DashboardLayout = ({
       <ButtonSwitch
         size="md"
         buttons={[
-          { label: "Top 30", onClick: showTop, active: !showingFollowing },
+          { label: 'Current', onClick: showTop, active: !showingFollowing },
           {
-            label: "Following",
+            label: 'Historical ',
             onClick: showFollowing,
             active: showingFollowing,
           },

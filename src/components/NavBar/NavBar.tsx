@@ -1,16 +1,18 @@
-import React from "react";
-import { withRouter, RouteComponentProps } from "react-router";
+import React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import Clippy from "../Clippy/Clippy";
+import Clippy from '../Clippy/Clippy';
 
-import { AppBar, Button, Toolbar } from "react95";
+import { AppBar, Button, Toolbar } from 'react95';
 
-import GearsIcon from "../../assets/img/emblem-system.png";
-import WorldIcon from "../../assets/img/worldIcon.png";
-import UserIcon from "../../assets/img/avatar-default.png";
-import HomeIcon from "../../assets/img/homeIcon.png";
+import GearsIcon from '../../assets/img/emblem-system.png';
+import WorldIcon from '../../assets/img/worldIcon.png';
+import UserIcon from '../../assets/img/avatar-default.png';
+import HomeIcon from '../../assets/img/homeIcon.png';
+import MoneyIcon from '../../assets/img/money.png';
+import ShakeIcon from '../../assets/img/shake.png';
 
 type Props = RouteComponentProps<{}>;
 
@@ -20,43 +22,43 @@ const NavBar = (props: Props) => {
     <Nav fixed>
       <SToolbar>
         <SwitchButton
-          active={currentLocation === "/coins"}
-          onClick={() => props.history.push("/coins")}
+          active={currentLocation === '/coins'}
+          onClick={() => props.history.push('/coins')}
           fullWidth
           size="lg"
         >
           <Icon src={HomeIcon} alt="icon" />
         </SwitchButton>
         <SwitchButton
-          active={currentLocation.startsWith("/wallet")}
-          onClick={() => props.history.push("/wallet")}
+          active={currentLocation.startsWith('/wallet')}
+          onClick={() => props.history.push('/wallet')}
           fullWidth
           size="lg"
         >
           <Icon
             style={{ height: 21, opacity: 0.9 }}
-            src={UserIcon}
+            src={ShakeIcon}
             alt="icon"
           />
         </SwitchButton>
         <SwitchButton
-          active={currentLocation === "/news"}
-          onClick={() => props.history.push("/news")}
+          active={currentLocation === '/news'}
+          onClick={() => props.history.push('/news')}
           fullWidth
           size="lg"
         >
           <Icon src={WorldIcon} alt="icon" />
         </SwitchButton>
         <SwitchButton
-          active={currentLocation === "/settings"}
-          onClick={() => props.history.push("/settings")}
+          active={currentLocation === '/settings'}
+          onClick={() => props.history.push('/settings')}
           fullWidth
           size="lg"
         >
           <Icon src={GearsIcon} alt="icon" style={{ height: 30 }} />
         </SwitchButton>
       </SToolbar>
-      <Clippy />
+      {/* <Clippy /> */}
     </Nav>
   );
 };
