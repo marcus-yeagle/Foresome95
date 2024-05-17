@@ -16,7 +16,7 @@ import ShakeIcon from '../../assets/img/shake.png';
 
 type Props = RouteComponentProps<{}>;
 
-const NavBar = (props: any) => {
+const NavBar = (props: Props) => {
   const currentLocation = props.location.pathname;
   return (
     <Nav position="fixed">
@@ -63,7 +63,7 @@ const NavBar = (props: any) => {
   );
 };
 
-export default NavBar;
+export default withRouter(NavBar);
 
 const Nav = styled(AppBar)`
   top: auto;
