@@ -59,6 +59,7 @@ const Modal = styled.div`
   padding: 2rem 2rem 0 2rem;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
+  z-index: 999;
 `;
 
 const ModalBody = styled.div`
