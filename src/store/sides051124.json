@@ -64,7 +64,7 @@
   {
     "id": 4,
     "date": "2024-11-17",
-    "betType": "Group Winner (Net)",
+    "betType": "Group Net Winner",
     "players": [
       {
         "name": "Weiss, Frank",
@@ -80,7 +80,7 @@
   {
     "id": 5,
     "date": "2024-11-17",
-    "betType": "Group Winner (Net)",
+    "betType": "Group Net Winner",
     "players": [
       {
         "name": "Steele, Matt",
@@ -96,7 +96,7 @@
   {
     "id": 6,
     "date": "2024-11-17",
-    "betType": "Group Winner (Net)",
+    "betType": "Group Net Winner",
     "players": [
       {
         "name": "Westerheide, Pete",
@@ -112,7 +112,7 @@
   {
     "id": 7,
     "date": "2024-11-17",
-    "betType": "Group Winner (Net)",
+    "betType": "Group Net Winner",
     "players": [
       {
         "name": "Yeagle, Marcus",
