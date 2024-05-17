@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -15,6 +15,7 @@ import EyeIcon from '../../assets/img/eyeIcon.png';
 import FlexTable from '../../components/FlexTable/FlexTable';
 import { CoinsData, CoinsInfo } from '../../store/reducers/coins';
 import SidesData from '../../store/sides051124.json';
+import BetDetailModal from '../../components/BetDetailModal/BetDetailModal';
 
 // TODO: proper typing for router search params
 type OrderBy = 'price' | 'change' | 'name';
@@ -25,6 +26,9 @@ type Props = RouteComponentProps<{
 };
 
 const CoinsTable = ({ history, data, location }: Props) => {
+  const [isOpened, setIsOpened] = useState(false);
+  const [betDetail, setBetDetail] = useState(undefined);
+
   const handleChangeOrder = (orderBy: OrderBy) => {
     const currentSearchParams = new URLSearchParams(history.location.search);
     const currentOrderBy = currentSearchParams.get('orderBy') as OrderBy;
@@ -105,6 +109,8 @@ const CoinsTable = ({ history, data, location }: Props) => {
 
   function handleBetClick(d: any, i: number) {
     console.log(d, i);
+    setIsOpened(true);
+    setBetDetail(d);
   }
 
   console.log(SidesData);
@@ -139,22 +145,29 @@ const CoinsTable = ({ history, data, location }: Props) => {
   });
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableHeadCell onClick={() => handleChangeOrder('name')}>
-            Type
-          </TableHeadCell>
-          <TableHeadCell onClick={() => handleChangeOrder('name')}>
-            Player(s)
-          </TableHeadCell>
-          <TableHeadCell onClick={() => handleChangeOrder('price')}>
-            View
-          </TableHeadCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>{sideTableData}</TableBody>
-    </Table>
+    <>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeadCell onClick={() => handleChangeOrder('name')}>
+              Type
+            </TableHeadCell>
+            <TableHeadCell onClick={() => handleChangeOrder('name')}>
+              Player(s)
+            </TableHeadCell>
+            <TableHeadCell onClick={() => handleChangeOrder('price')}>
+              View
+            </TableHeadCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{sideTableData}</TableBody>
+      </Table>
+      <BetDetailModal
+        isOpened={isOpened}
+        setIsOpened={(b) => setIsOpened(b)}
+        detailData={betDetail}
+      />
+    </>
   );
 };
 

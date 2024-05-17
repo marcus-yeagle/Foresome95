@@ -63,7 +63,7 @@ const NavBar = (props: Props) => {
   );
 };
 
-export default withRouter(NavBar);
+export default NavBar;
 
 const Nav = styled(AppBar)`
   top: auto;
