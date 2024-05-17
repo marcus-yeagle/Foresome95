@@ -11,6 +11,7 @@ import {
   TableDataCell,
 } from 'react95';
 import FileIcon from '../../components/FileIcon/FileIcon';
+import EyeIcon from '../../assets/img/eyeIcon.png';
 import FlexTable from '../../components/FlexTable/FlexTable';
 import { CoinsData, CoinsInfo } from '../../store/reducers/coins';
 import SidesData from '../../store/sides051124.json';
@@ -102,14 +103,33 @@ const CoinsTable = ({ history, data, location }: Props) => {
     });
   }
 
+  function handleBetClick(d: any, i: number) {
+    console.log(d, i);
+  }
+
   console.log(SidesData);
   let sideTableData = SidesData.map((sideData, i) => {
     return (
       <TableRow key={i} onClick={() => history.push(`/coins/`)}>
         <TableDataCell>{sideData.betType}</TableDataCell>
-        <TableDataCell>{sideData.players.map((p) => p.name)}</TableDataCell>
-        <TableDataCell style={{ textAlign: 'right' }}></TableDataCell>
-        <TableDataCell style={{ textAlign: 'right' }}></TableDataCell>
+        <TableDataCell>
+          {sideData.betType === 'Proposition'
+            ? 'All'
+            : sideData.players.map(
+                (p) =>
+                  p.name.substring(0, p.name.indexOf(',')) +
+                  (sideData.players.length > 1 ? '/' : '')
+              )}
+        </TableDataCell>
+        <TableDataCell style={{ textAlign: 'right' }}>
+          <img
+            src={EyeIcon}
+            style={{ height: 24, padding: '0.5rem' }}
+            onClick={() => {
+              handleBetClick(sideData, i);
+            }}
+          />
+        </TableDataCell>
       </TableRow>
     );
   });
@@ -125,10 +145,7 @@ const CoinsTable = ({ history, data, location }: Props) => {
             Player(s)
           </TableHeadCell>
           <TableHeadCell onClick={() => handleChangeOrder('price')}>
-            Sides
-          </TableHeadCell>
-          <TableHeadCell onClick={() => handleChangeOrder('change')}>
-            Action
+            View
           </TableHeadCell>
         </TableRow>
       </TableHead>

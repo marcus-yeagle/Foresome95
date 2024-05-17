@@ -3,7 +3,7 @@ import { withRouter, RouteComponentProps } from 'react-router';
 
 import styled from 'styled-components';
 
-import Clippy from '../Clippy/Clippy';
+// import Clippy from '../Clippy/Clippy';
 
 import { AppBar, Button, Toolbar } from 'react95';
 
@@ -19,7 +19,7 @@ type Props = RouteComponentProps<{}>;
 const NavBar = (props: Props) => {
   const currentLocation = props.location.pathname;
   return (
-    <Nav fixed>
+    <Nav position="fixed">
       <SToolbar>
         <SwitchButton
           active={currentLocation === '/coins'}
@@ -41,14 +41,14 @@ const NavBar = (props: Props) => {
             alt="icon"
           />
         </SwitchButton>
-        <SwitchButton
+        {/* <SwitchButton
           active={currentLocation === '/news'}
           onClick={() => props.history.push('/news')}
           fullWidth
           size="lg"
         >
           <Icon src={WorldIcon} alt="icon" />
-        </SwitchButton>
+        </SwitchButton> */}
         <SwitchButton
           active={currentLocation === '/settings'}
           onClick={() => props.history.push('/settings')}

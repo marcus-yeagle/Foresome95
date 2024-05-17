@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "betType": "Matchup",
     "players": [
       {
@@ -22,6 +23,7 @@
     "prop": ""
   },
   {
+    "id": 2,
     "betType": "Gross Score",
     "players": [
       {
@@ -39,6 +41,7 @@
     "prop": ""
   },
   {
+    "id": 3,
     "betType": "Gross Score",
     "players": [
       {
@@ -55,8 +58,8 @@
     ],
     "prop": ""
   },
-
   {
+    "id": 4,
     "betType": "Group Net Winner",
     "players": [
       {
@@ -71,6 +74,7 @@
     "prop": ""
   },
   {
+    "id": 5,
     "betType": "Group Net Winner",
     "players": [
       {
@@ -85,6 +89,7 @@
     "prop": ""
   },
   {
+    "id": 6,
     "betType": "Group Net Winner",
     "players": [
       {
@@ -99,6 +104,7 @@
     "prop": ""
   },
   {
+    "id": 7,
     "betType": "Group Net Winner",
     "players": [
       {
@@ -113,6 +119,7 @@
     "prop": ""
   },
   {
+    "id": 8,
     "betType": "Proposition",
     "players": [],
     "score": null,
