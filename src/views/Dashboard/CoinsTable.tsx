@@ -110,8 +110,12 @@ const CoinsTable = ({ history, data, location }: Props) => {
   console.log(SidesData);
   let sideTableData = SidesData.map((sideData, i) => {
     return (
-      <TableRow key={i} onClick={() => history.push(`/coins/`)}>
-        <TableDataCell>{sideData.betType}</TableDataCell>
+      <TableRow key={i} onClick={() => undefined}>
+        <TableDataCell>
+          {sideData.betType === 'Gross Score'
+            ? `${sideData.betType} (${sideData.score})`
+            : sideData.betType}
+        </TableDataCell>
         <TableDataCell>
           {sideData.betType === 'Proposition'
             ? 'All'
