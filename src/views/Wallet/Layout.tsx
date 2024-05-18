@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, Route } from 'react-router-dom';
 import { withRouter, RouteComponentProps } from 'react-router';
 import arrayMove from 'array-move';
-import { Divider, Toolbar } from 'react95';
+import { Button, Divider, TextInput, Toolbar } from 'react95';
 import {
   SortableContainer,
   SortableElement,
@@ -20,6 +20,8 @@ import CurrencySelect from '../../components/CurrencySelect/CurrencySelect';
 import Well from '../../components/Well/Well';
 import WellContainer from '../../components/WellContainer/WellContainer';
 import LinkButton from '../../components/LinkButton/LinkButton';
+import SearchIcon from '../../assets/img/system-search.png';
+import PlayerSearch from '../PlayerSearch/PlayerSearch';
 
 const DragHandle = SortableHandle(Handle);
 const SortableItem = SortableElement(
@@ -77,9 +79,16 @@ const Layout = ({
       ) / 100
     : null;
 
+  const [searchPhrase, setSearchPhrase] = useState('');
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchPhrase(e.target.value);
+  };
+
   return (
     <Wrapper>
       <Top>
+        <PlayerSearch></PlayerSearch>
         <div>
           <header>
             <a href="https://twitter.com/artur_bien?lang=en">
@@ -307,4 +316,8 @@ const Balance = styled.div`
 const CoinLinkContent = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const SearchWrapper = styled(Toolbar)`
+  margin: 0 -4px;
 `;

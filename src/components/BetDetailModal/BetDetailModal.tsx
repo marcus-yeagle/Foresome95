@@ -28,6 +28,8 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
     );
   }
 
+  function renderMatchupDetails() {}
+
   return (
     <ThemeProvider theme={original}>
       {isOpened && (
@@ -36,10 +38,70 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
             <div style={{ minWidth: '250px' }}>
               <GroupBox variant="flat" label={renderBetDetailLabel()}>
                 {renderPlayerBetDetail()}
+                {detailData.betType === 'Group Net Winner' ? (
+                  <div>
+                    <p>+{detailData.action}</p>
+                    <br />
+                    <GroupBox variant="flat" label={'Group'}>
+                      <p>Steele, Matt</p>
+                      <p>Weiss, Frank</p>
+                      <p>Palm, Bryce</p>
+                    </GroupBox>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {detailData.betType === 'Gross Score' ? (
+                  <div style={{ paddingTop: '2.5rem' }}>
+                    {detailData.sides.map((s: any) => (
+                      <Button
+                        primary={s.action < 0}
+                        disabled
+                        variant="flat"
+                        style={{ marginRight: '0.5rem' }}
+                      >
+                        {s.side}&nbsp;
+                        {s.action}
+                      </Button>
+                    ))}
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {detailData.betType === 'Matchup' ? (
+                  <div style={{ paddingTop: '2.5rem' }}>
+                    {detailData.sides.map((s: any) => (
+                      <Button
+                        primary={s.action < 0}
+                        disabled
+                        variant="flat"
+                        style={{ marginRight: '0.5rem' }}
+                      >
+                        {s.side}&nbsp;
+                        {s.action}
+                      </Button>
+                    ))}
+                  </div>
+                ) : (
+                  <></>
+                )}
                 {detailData.betType === 'Proposition' ? (
-                  <p style={{ lineHeight: '1.5', margin: '1rem 0 2rem' }}>
-                    {detailData.prop}
-                  </p>
+                  <div>
+                    <p style={{ lineHeight: '1.5', margin: '1rem 0 2rem' }}>
+                      {detailData.prop}
+                    </p>
+                    {detailData.sides.map((s: any) => (
+                      <Button
+                        primary={s.action < 0}
+                        disabled
+                        variant="flat"
+                        style={{ marginRight: '0.5rem' }}
+                      >
+                        {s.side}&nbsp;
+                        {s.action}
+                      </Button>
+                    ))}
+                  </div>
                 ) : (
                   <></>
                 )}
@@ -84,7 +146,7 @@ const Modal = styled.div`
 
 const ModalBody = styled.div`
   /* position: relative; */
-  height: 200px;
+  height: 210px;
   padding: 1rem;
   border: 2px solid ${({ theme }) => theme.borderDarkest};
   color: ${({ theme }) => theme.materialText};
