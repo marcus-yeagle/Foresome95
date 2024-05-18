@@ -1,32 +1,52 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import original from 'react95/dist/themes/original';
-import { Button } from 'react95';
+import { Button, GroupBox } from 'react95';
 
 const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
   console.log(detailData);
+
+  function renderBetDetailLabel() {
+    if (detailData.betType === 'Gross Score') {
+      return `${detailData.score} - ${detailData.betType}`;
+    } else {
+      return detailData.betType;
+    }
+  }
+
+  function renderPlayerBetDetail() {
+    return (
+      <>
+        <ul>
+          {detailData.players.map((p: any) => (
+            <li>
+              {p.name}&nbsp;({p.indx})
+            </li>
+          ))}
+        </ul>
+      </>
+    );
+  }
 
   return (
     <ThemeProvider theme={original}>
       {isOpened && (
         <Modal onClick={() => setIsOpened(false)}>
           <ModalBody onClick={(e) => e.stopPropagation()}>
-            <h3
-              style={{
-                fontWeight: 'bold',
-                fontSize: '1.1em',
-              }}
-            >
-              Clippy is dead
-            </h3>
-            <p style={{ lineHeight: '1.5', margin: '1rem 0 2rem' }}>
-              I'm trying to bring it back to life.
-              <br />
-              I've spent couple of months working on this app and I am not even
-              interested in crypto. If you like what you see, show some love.
-            </p>
-            <br />
-            <Button
+            <div style={{ minWidth: '250px' }}>
+              <GroupBox variant="flat" label={renderBetDetailLabel()}>
+                {renderPlayerBetDetail()}
+                {detailData.betType === 'Proposition' ? (
+                  <p style={{ lineHeight: '1.5', margin: '1rem 0 2rem' }}>
+                    {detailData.prop}
+                  </p>
+                ) : (
+                  <></>
+                )}
+              </GroupBox>
+            </div>
+
+            {/* <Button
               as="a"
               //@ts-ignore
               variant="flat"
@@ -35,7 +55,7 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
               onClick={() => setIsOpened(false)}
             >
               Continue
-            </Button>
+            </Button> */}
           </ModalBody>
         </Modal>
       )}
