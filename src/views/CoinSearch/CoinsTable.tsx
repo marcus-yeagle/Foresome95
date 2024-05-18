@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import styled from "styled-components";
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import styled from 'styled-components';
 import {
   TableHead,
   TableBody,
@@ -9,13 +9,13 @@ import {
   TableHeadCell,
   TableDataCell,
   Checkbox,
-} from "react95";
-import FlexTable from "../../components/FlexTable/FlexTable";
+} from 'react95';
+import FlexTable from '../../components/FlexTable/FlexTable';
 
-import FileIcon from "../../components/FileIcon/FileIcon";
-import EyeIcon from "../../assets/img/eyeIcon.png";
-import Well from "../../components/Well/Well";
-import WellContainer from "../../components/WellContainer/WellContainer";
+import FileIcon from '../../components/FileIcon/FileIcon';
+import EyeIcon from '../../assets/img/eyeIcon.png';
+import Well from '../../components/Well/Well';
+import WellContainer from '../../components/WellContainer/WellContainer';
 
 const COIN_LIMIT = 40;
 
@@ -30,13 +30,13 @@ type CoinRow = {
 };
 
 export type CoinsTableProps = {
-  data: CoinRow[] | null;
+  data: any[] | null;
   onFollow: (coinName: string, follow: boolean) => void;
   searchPhrase: string;
 } & RouteComponentProps<{}>;
 
 type State = {
-  orderBy: "rank" | "name" | "following";
+  orderBy: 'rank' | 'name' | 'following';
   desc: boolean;
 };
 
@@ -44,12 +44,12 @@ class CoinsTable extends React.Component<CoinsTableProps, State> {
   constructor(props: CoinsTableProps) {
     super(props);
     this.state = {
-      orderBy: "rank",
+      orderBy: 'rank',
       desc: false,
     };
   }
 
-  handleChangeOrder = (orderBy: State["orderBy"]) => {
+  handleChangeOrder = (orderBy: State['orderBy']) => {
     if (orderBy === this.state.orderBy) {
       this.setState((prevState) => ({ desc: !prevState.desc }));
     } else {
@@ -65,9 +65,9 @@ class CoinsTable extends React.Component<CoinsTableProps, State> {
 
     // TODO: use those values instead of rank/name/following
     const orderPairs = {
-      rank: "sortOrder",
-      name: "coinName",
-      following: "isFollowed",
+      rank: 'sortOrder',
+      name: 'coinName',
+      following: 'isFollowed',
     } as const;
 
     let tableData;
@@ -76,7 +76,7 @@ class CoinsTable extends React.Component<CoinsTableProps, State> {
     } else {
       const orderBy = orderPairs[this.state.orderBy];
       let desc = this.state.desc ? 1 : -1;
-      desc = this.state.orderBy === "name" ? -desc : desc;
+      desc = this.state.orderBy === 'name' ? -desc : desc;
 
       const orderedData = [...data]
         .filter((coin) => {
@@ -102,11 +102,11 @@ class CoinsTable extends React.Component<CoinsTableProps, State> {
               <SFileIcon height={22} imageURL={imageURL} />
               <CoinName>{`${coinName.toLowerCase()}.${name.toLowerCase()}`}</CoinName>
             </TableDataCell>
-            <TableDataCell style={{ textAlign: "right" }} onClick={onClick}>
+            <TableDataCell style={{ textAlign: 'right' }} onClick={onClick}>
               {sortOrder}
             </TableDataCell>
             <TableDataCell
-              style={{ textAlign: "right" }}
+              style={{ textAlign: 'right' }}
               onClick={() => {
                 onFollow(symbol, !isFollowed);
               }}
@@ -129,14 +129,14 @@ class CoinsTable extends React.Component<CoinsTableProps, State> {
           <Table>
             <TableHead>
               <TableRow>
-                <TableHeadCell onClick={() => this.handleChangeOrder("name")}>
+                <TableHeadCell onClick={() => this.handleChangeOrder('name')}>
                   Name
                 </TableHeadCell>
-                <TableHeadCell onClick={() => this.handleChangeOrder("rank")}>
+                <TableHeadCell onClick={() => this.handleChangeOrder('rank')}>
                   Rank
                 </TableHeadCell>
                 <TableHeadCell
-                  onClick={() => this.handleChangeOrder("following")}
+                  onClick={() => this.handleChangeOrder('following')}
                 >
                   <EyeIconIMG src={EyeIcon} />
                 </TableHeadCell>
@@ -152,7 +152,7 @@ class CoinsTable extends React.Component<CoinsTableProps, State> {
                 ? `Showing ${tableData ? tableData.length : 0} coin(s) of ${
                     data.length
                   } total`
-                : "Loading..."}
+                : 'Loading...'}
             </Well>
             <Well draggable />
           </WellContainer>

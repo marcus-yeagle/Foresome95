@@ -8,13 +8,13 @@ import SearchIcon from '../../assets/img/system-search.png';
 import { CoinsTableProps } from '../CoinSearch/CoinsTable';
 import PlayerTable from './PlayerTable';
 
-type Props = RouteComponentProps<{}> &
-  Pick<CoinsTableProps, 'data' | 'onFollow'>;
+type Props = RouteComponentProps<{}> & Pick<any, 'data' | 'onFollow'>;
 
 const Layout = ({ data, onFollow }: Props) => {
   const [searchPhrase, setSearchPhrase] = useState('');
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
     setSearchPhrase(e.target.value);
   };
 

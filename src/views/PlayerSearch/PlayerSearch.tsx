@@ -6,39 +6,29 @@ import { setFollowedCoin } from '../../store/actions/user';
 
 import Layout from './Layout';
 
+import PLAYERS from '../../store/players.json';
+
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-const PlayerSearch = ({ data, fetchCoinsInfo, setFollowedCoin }: Props) => {
+const PlayerSearch = ({ data }: Props) => {
   useEffect(() => {
     if (!data) {
-      fetchCoinsInfo();
+      //   fetchCoinsInfo();
+      // alert('GET Players');
     }
   }, [data, fetchCoinsInfo]);
   return <Layout data={data} onFollow={setFollowedCoin} />;
 };
 
 const mapStateToProps = (state: AppState) => {
-  if (state.coins.info === null) {
-    return {
-      data: null,
-    };
-  } else {
-    let info = state.coins.info;
-    return {
-      data: Object.keys(state.coins.info).map((coin) => {
-        const coinData = {
-          ...info[coin],
-          isFollowed: state.user.followed.includes(coin),
-        };
-        return coinData;
-      }),
-    };
-  }
+  return {
+    data: PLAYERS,
+  };
 };
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   // TODO: is there a better way to silence TS with something other than <any>?
-  fetchCoinsInfo: () => dispatch<any>(fetchCoinsInfo()),
+  // fetchCoinsInfo: () => dispatch<any>(fetchCoinsInfo()),
   // TODO: extract 'coin' and 'follow' types from 'setFollowedCoin' arguments
   setFollowedCoin: (coin: string, follow: boolean) =>
     dispatch(setFollowedCoin(coin, follow)),

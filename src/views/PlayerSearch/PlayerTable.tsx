@@ -16,18 +16,7 @@ import FileIcon from '../../components/FileIcon/FileIcon';
 import EyeIcon from '../../assets/img/eyeIcon.png';
 import Well from '../../components/Well/Well';
 import WellContainer from '../../components/WellContainer/WellContainer';
-
-const COIN_LIMIT = 40;
-
-type CoinRow = {
-  name: string;
-  coinName: string;
-  symbol: string;
-  imageURL: string;
-  sortOrder: number;
-  isFollowed: boolean;
-  // [a: string]: any;
-};
+import PLAYERS from '../../store/players.json';
 
 export type PlayerTableProps = {
   data: any[] | null;
@@ -58,30 +47,25 @@ class PlayerTable extends React.Component<PlayerTableProps, State> {
   };
 
   render() {
-    let { history, location, data, onFollow, searchPhrase } = this.props;
-    const currentUrl = location.pathname + location.search;
-
+    let { data, onFollow, searchPhrase } = this.props;
     searchPhrase = searchPhrase.toLowerCase();
 
-    // TODO: use those values instead of rank/name/following
-    const orderPairs = {
-      rank: 'sortOrder',
-      name: 'coinName',
-      following: 'isFollowed',
-    } as const;
-
-    let tableData = [
-      {
-        name: 'Hiers, Paul',
-        indx: 3,
-        tee: 'black',
-      },
-      {
-        name: 'Sickles, Corey',
-        indx: 11,
-        tee: 'blue',
-      },
-    ];
+    const tableData = PLAYERS.filter((p) => {
+      console.log(searchPhrase);
+      if (searchPhrase) {
+        return p.name.toUpperCase().includes(searchPhrase.toUpperCase());
+      }
+      return true;
+    }).map((p, i) => {
+      return (
+        <TableRow key={i}>
+          <TableDataCell onClick={undefined}>{p.name}</TableDataCell>
+          <TableDataCell style={{ textAlign: 'right' }} onClick={undefined}>
+            {p.value}
+          </TableDataCell>
+        </TableRow>
+      );
+    });
 
     return (
       <>
@@ -93,17 +77,11 @@ class PlayerTable extends React.Component<PlayerTableProps, State> {
                   Name
                 </TableHeadCell>
                 <TableHeadCell onClick={() => this.handleChangeOrder('indx')}>
-                  Index
-                </TableHeadCell>
-                <TableHeadCell>Tees</TableHeadCell>
-                <TableHeadCell
-                  onClick={() => this.handleChangeOrder('following')}
-                >
-                  +
+                  ID
                 </TableHeadCell>
               </TableRow>
             </TableHead>
-            {/* <TableBody>{tableData}</TableBody> */}
+            <TableBody>{tableData}</TableBody>
           </Table>
         </TableWrapper>
         <TableFooter>
@@ -111,7 +89,7 @@ class PlayerTable extends React.Component<PlayerTableProps, State> {
             <Well>
               {data
                 ? `Showing ${tableData ? tableData.length : 0} player(s) of ${
-                    data.length
+                    PLAYERS.length
                   } total`
                 : 'Loading...'}
             </Well>
@@ -130,14 +108,6 @@ let TableFooter = styled.footer`
   margin-bottom: 2px;
   flex-shrink: 0;
 `;
-const SFileIcon = styled(FileIcon)`
-  margin-right: 6px;
-`;
-const CoinName = styled.span`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
 let TableWrapper = styled.div`
   flex: 1;
   margin-top: 0.5rem;
@@ -146,7 +116,6 @@ let TableWrapper = styled.div`
     height: 100%;
   }
 `;
-
 const Table = styled(FlexTable)`
   th:nth-child(1),
   td:nth-child(1) {
@@ -174,16 +143,4 @@ const Table = styled(FlexTable)`
     justify-content: space-around;
     align-items: center;
   }
-`;
-const SCheckbox = styled(Checkbox)`
-  height: 14px;
-  pointer-events: none;
-  & > div {
-    margin-left: 0.25rem;
-  }
-`;
-const EyeIconIMG = styled.img`
-  height: 26px;
-  width: auto;
-  margin-top: 3px;
 `;

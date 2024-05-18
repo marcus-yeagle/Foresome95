@@ -88,7 +88,6 @@ const Layout = ({
   return (
     <Wrapper>
       <Top>
-        <PlayerSearch></PlayerSearch>
         <div>
           <header>
             <a href="https://twitter.com/artur_bien?lang=en">
@@ -154,8 +153,10 @@ const Layout = ({
             </Well>
           </WellContainer>
         </div>
+        <PlayerSearch></PlayerSearch>
       </Top>
-      {data && (
+
+      {/* {data && (
         <>
           <ListWrapper>
             <SortableList useDragHandle lockAxis="y" onSortEnd={handleSortEnd}>
@@ -208,7 +209,7 @@ const Layout = ({
           </ListWrapper>
           <Route path={`${match.url}/:coin`} component={EditCoin} />
         </>
-      )}
+      )} */}
     </Wrapper>
   );
 };
