@@ -109,6 +109,7 @@ let TableFooter = styled.footer`
   flex-shrink: 0;
 `;
 let TableWrapper = styled.div`
+  height: 30vh;
   flex: 1;
   margin-top: 0.5rem;
   overflow: hidden;

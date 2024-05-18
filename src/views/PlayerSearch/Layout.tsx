@@ -46,11 +46,13 @@ const Layout = ({ data, onFollow }: Props) => {
           Clear
         </Button>
       </SearchWrapper>
-      <PlayerTable
-        data={['foo', 'bar']}
-        onFollow={onFollow}
-        searchPhrase={searchPhrase}
-      ></PlayerTable>
+      <div>
+        <PlayerTable
+          data={['foo', 'bar']}
+          onFollow={onFollow}
+          searchPhrase={searchPhrase}
+        ></PlayerTable>
+      </div>
     </div>
   );
 };

@@ -33,7 +33,11 @@ const DashboardLayout = ({
   return (
     <Fullpage>
       <Header>
-        <img style={{ height: 48, opacity: 0.9 }} src={MoneyIcon} alt="icon" />
+        <img
+          style={{ height: 52, opacity: 0.9, padding: '5px 0 0 5px' }}
+          src={MoneyIcon}
+          alt="icon"
+        />
         <h1>
           Fore
           <span>some</span>
