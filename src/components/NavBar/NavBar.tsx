@@ -22,8 +22,8 @@ const NavBar = (props: Props) => {
     <Nav position="fixed">
       <SToolbar>
         <SwitchButton
-          active={currentLocation === '/coins'}
-          onClick={() => props.history.push('/coins')}
+          active={currentLocation === '/'}
+          onClick={() => props.history.push('/')}
           fullWidth
           size="lg"
         >

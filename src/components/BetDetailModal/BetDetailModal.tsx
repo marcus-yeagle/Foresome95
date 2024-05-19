@@ -18,8 +18,8 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
     return (
       <>
         <ul>
-          {detailData.players.map((p: any) => (
-            <li>
+          {detailData.players.map((p: any, i: number) => (
+            <li key={p + i}>
               {p.name}&nbsp;({p.indx})
             </li>
           ))}
@@ -53,8 +53,9 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                 )}
                 {detailData.betType === 'Gross Score' ? (
                   <div style={{ paddingTop: '2.5rem' }}>
-                    {detailData.sides.map((s: any) => (
+                    {detailData.sides.map((s: any, i: number) => (
                       <Button
+                        key={i}
                         primary={s.action < 0}
                         disabled
                         variant="flat"
@@ -70,8 +71,9 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                 )}
                 {detailData.betType === 'Matchup' ? (
                   <div style={{ paddingTop: '2.5rem' }}>
-                    {detailData.sides.map((s: any) => (
+                    {detailData.sides.map((s: any, i: number) => (
                       <Button
+                        key={i}
                         primary={s.action < 0}
                         disabled
                         variant="flat"

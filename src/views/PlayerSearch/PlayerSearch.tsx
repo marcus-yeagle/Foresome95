@@ -1,37 +1,75 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { AppDispatch, AppState } from '../../store';
-import { fetchCoinsInfo } from '../../store/actions/coins';
-import { setFollowedCoin } from '../../store/actions/user';
+import React, { useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import styled from 'styled-components';
+import useLockBodyScroll from '../../hooks/useLockBodyScroll';
+import { Button, WindowContent, TextField, Toolbar, TextInput } from 'react95';
 
-import Layout from './Layout';
+import SearchIcon from '../../assets/img/system-search.png';
+import { CoinsTableProps } from '../CoinSearch/CoinsTable';
+import PlayerTable from './PlayerTable';
 
-import PLAYERS from '../../store/players.json';
+const PlayerSearch = ({ data, onPlayerSelect }: any) => {
+  const [searchPhrase, setSearchPhrase] = useState('');
 
-type Props = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>;
-
-const PlayerSearch = ({ data }: Props) => {
-  useEffect(() => {
-    if (!data) {
-      //   fetchCoinsInfo();
-      // alert('GET Players');
-    }
-  }, [data, fetchCoinsInfo]);
-  return <Layout data={data} onFollow={setFollowedCoin} />;
-};
-
-const mapStateToProps = (state: AppState) => {
-  return {
-    data: PLAYERS,
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchPhrase(e.target.value);
   };
-};
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  // TODO: is there a better way to silence TS with something other than <any>?
-  // fetchCoinsInfo: () => dispatch<any>(fetchCoinsInfo()),
-  // TODO: extract 'coin' and 'follow' types from 'setFollowedCoin' arguments
-  setFollowedCoin: (coin: string, follow: boolean) =>
-    dispatch(setFollowedCoin(coin, follow)),
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerSearch);
+  useLockBodyScroll();
+  return (
+    <div>
+      <SearchWrapper>
+        <img
+          alt="Search icon"
+          src={SearchIcon}
+          style={{
+            height: 27,
+            marginTop: 2,
+            marginRight: '0.5rem',
+            imageRendering: 'pixelated',
+          }}
+        />
+        <TextInput
+          placeholder="Search Player..."
+          value={searchPhrase}
+          onChange={handleSearch}
+          width="100%"
+          style={{ marginRight: '4px', width: '100%' }}
+        />
+        <Button
+          disabled={searchPhrase === ''}
+          onClick={() => setSearchPhrase('')}
+        >
+          Clear
+        </Button>
+      </SearchWrapper>
+      <div>
+        <PlayerTable
+          data={['foo', 'bar']}
+          onFollow={(p: string) => {
+            onPlayerSelect(p);
+          }}
+          searchPhrase={searchPhrase}
+        ></PlayerTable>
+      </div>
+    </div>
+  );
+};
+
+export default PlayerSearch;
+
+let SWindowContent = styled(WindowContent)`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 37px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+`;
+
+const SearchWrapper = styled(Toolbar)`
+  margin: 0 -4px;
+`;

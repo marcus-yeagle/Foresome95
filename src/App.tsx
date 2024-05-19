@@ -18,6 +18,7 @@ import News from './views/News/News';
 import Settings from './views/Settings/Settings';
 import Viewport from './components/Viewport/Viewport';
 import NavBar from './components/NavBar/NavBar';
+import AddBet from './views/AddBet/AddBet';
 
 const ResetStyles = createGlobalStyle<{
   vintageFont: boolean;
@@ -171,13 +172,14 @@ const App = ({
                 <NavBar />
               </Switch>
               <Switch>
-                <Route exact path={'/coins'} component={Dashboard} />
-                <Route exact path={'/coins/:coin'} component={CoinDetails} />
+                <Route exact path={'/'} component={Dashboard} />
+                {/* <Route exact path={'/coins/:coin'} component={CoinDetails} /> */}
                 <Route exact path={'/search'} component={CoinSearch} />
+                <Route exact path={'/add/bet'} component={AddBet} />
                 <Route path={'/wallet/'} component={Wallet} />
-                <Route exact path={'/news'} component={News} />
+                {/* <Route exact path={'/news'} component={News} /> */}
                 <Route exact path={'/settings'} component={Settings} />
-                <Redirect exact from={'/'} to={'/coins'} />
+                {/* <Redirect exact from={'/'} to={'/coins'} /> */}
               </Switch>
             </>
           </BrowserRouter>

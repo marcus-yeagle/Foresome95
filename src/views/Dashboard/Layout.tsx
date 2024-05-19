@@ -39,11 +39,11 @@ const DashboardLayout = ({
           alt="icon"
         />
         <h1>
-          Fore
-          <span>some</span>
+          Sunday
+          <span>Sides</span>
           <small>v{packageJSON.version}</small>
         </h1>
-        {!showingFollowing && (
+        {/* {!showingFollowing && (
           <LinkButton
             to={{
               pathname: '/search',
@@ -54,7 +54,7 @@ const DashboardLayout = ({
           >
             Add +
           </LinkButton>
-        )}
+        )} */}
       </Header>
       <CoinsTableWrapper>
         <CoinsTable data={data} />
@@ -82,7 +82,7 @@ let Header = styled.header`
   align-items: center;
   height: 40px;
   padding: 0 5px;
-  margin-bottom: 1em;
+  margin-bottom: 0.5rem;
   /* background: rgb(128, 128, 128); */
 
   h1 {

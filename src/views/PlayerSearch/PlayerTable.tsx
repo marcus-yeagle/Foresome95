@@ -18,19 +18,19 @@ import Well from '../../components/Well/Well';
 import WellContainer from '../../components/WellContainer/WellContainer';
 import PLAYERS from '../../store/players.json';
 
-export type PlayerTableProps = {
-  data: any[] | null;
-  onFollow: (coinName: string, follow: boolean) => void;
-  searchPhrase: string;
-} & RouteComponentProps<{}>;
+// export type PlayerTableProps = {
+//   data: any[] | null;
+//   onFollow: (name: string) => void;
+//   searchPhrase: string;
+// } & RouteComponentProps<{}>;
 
 type State = {
   orderBy: 'rank' | 'name' | 'following' | 'indx';
   desc: boolean;
 };
 
-class PlayerTable extends React.Component<PlayerTableProps, State> {
-  constructor(props: PlayerTableProps) {
+class PlayerTable extends React.Component<any, State> {
+  constructor(props: any) {
     super(props);
     this.state = {
       orderBy: 'rank',
@@ -51,15 +51,19 @@ class PlayerTable extends React.Component<PlayerTableProps, State> {
     searchPhrase = searchPhrase.toLowerCase();
 
     const tableData = PLAYERS.filter((p) => {
-      console.log(searchPhrase);
       if (searchPhrase) {
         return p.name.toUpperCase().includes(searchPhrase.toUpperCase());
       }
       return true;
     }).map((p, i) => {
       return (
-        <TableRow key={i}>
-          <TableDataCell onClick={undefined}>{p.name}</TableDataCell>
+        <TableRow
+          key={i}
+          onClick={(e) => {
+            onFollow(p.name);
+          }}
+        >
+          <TableDataCell>{p.name}</TableDataCell>
           <TableDataCell style={{ textAlign: 'right' }} onClick={undefined}>
             {p.value}
           </TableDataCell>
@@ -109,7 +113,7 @@ let TableFooter = styled.footer`
   flex-shrink: 0;
 `;
 let TableWrapper = styled.div`
-  height: 30vh;
+  height: 40vh;
   flex: 1;
   margin-top: 0.5rem;
   overflow: hidden;
