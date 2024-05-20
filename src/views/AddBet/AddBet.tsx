@@ -10,7 +10,7 @@ import LinkButton from '../../components/LinkButton/LinkButton';
 
 import JuggleIcon from '../../assets/img/insert-object.png';
 
-const AddBet = ({ player }) => {
+const AddBet = ({ player, onClose }) => {
   const [searchPhrase, setSearchPhrase] = useState('');
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +31,10 @@ const AddBet = ({ player }) => {
             imageRendering: 'pixelated',
           }}
         />
-        Create Bet
-        <LinkButton
+        Place Bet
+        <Button
           square
+          onClick={onClose}
           size="sm"
           style={{
             position: 'absolute',
@@ -41,13 +42,13 @@ const AddBet = ({ player }) => {
             top: 3,
             fontWeight: 'bold',
           }}
-          goBack
         >
           <CloseIcon />
-        </LinkButton>
+        </Button>
       </WindowHeader>
       <SWindowContent>
         <h1>Add Bet</h1>
+        <small>{player.name}</small>
       </SWindowContent>
     </FullPageWindow>
   );

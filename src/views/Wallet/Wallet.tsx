@@ -29,6 +29,7 @@ import WellContainer from '../../components/WellContainer/WellContainer';
 import LinkButton from '../../components/LinkButton/LinkButton';
 import SearchIcon from '../../assets/img/system-search.png';
 import PlayerSearch from '../PlayerSearch/PlayerSearch';
+import AddBet from '../AddBet/AddBet';
 
 // TODO: cleanup
 type WalletCoinData = {
@@ -79,6 +80,7 @@ const Wallet = ({
   const [selectedPlayer, setSelectedPlayer] = useState('');
   const [atRiskValue, setAtRiskValue] = useState(0);
   const [toWinValue, setToWinValue] = useState(0);
+  const [showMakeBet, setShowMakeBet] = useState(false);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
@@ -89,30 +91,39 @@ const Wallet = ({
   }
 
   return (
-    <Wrapper>
-      <Top>
-        <div>
-          <header>
-            <a href="">{selectedPlayer}</a>
-          </header>
-          <Separator />
-          <section>
-            <AvatarWrapper>
-              {selectedPlayer ? (
-                <Avatar size={70} style={{ background: '#008080' }}>
-                  {selectedPlayer.split(',')[1].charAt(1) +
-                    selectedPlayer.split(',')[0].charAt(0)}
-                </Avatar>
-              ) : (
-                <Avatar size={70}></Avatar>
-              )}
-            </AvatarWrapper>
+    <>
+      <Wrapper>
+        <Top>
+          <div>
+            <header>
+              <a href="">{selectedPlayer}</a>
+            </header>
+            <Separator />
+            <section>
+              <AvatarWrapper>
+                {selectedPlayer ? (
+                  <Avatar size={70} style={{ background: '#008080' }}>
+                    {selectedPlayer.split(',')[1].charAt(1) +
+                      selectedPlayer.split(',')[0].charAt(0)}
+                  </Avatar>
+                ) : (
+                  <Avatar size={70}></Avatar>
+                )}
+              </AvatarWrapper>
 
-            <div>
-              <TotalBalance>{formatCurrency(atRiskValue, 'USD')}</TotalBalance>
               <div>
-                <Toolbar>
-                  <LinkButton
+                <TotalBalance>
+                  {formatCurrency(atRiskValue, 'USD')}
+                </TotalBalance>
+                <div>
+                  <Toolbar>
+                    <Button
+                      disabled={!selectedPlayer}
+                      onClick={() => setShowMakeBet(true)}
+                    >
+                      Make Bet
+                    </Button>
+                    {/* <LinkButton
                     disabled={!selectedPlayer}
                     fullWidth
                     style={{ marginRight: 8 }}
@@ -125,31 +136,37 @@ const Wallet = ({
                     }}
                   >
                     Make Bet
-                  </LinkButton>
-                  <CurrencySelect />
-                </Toolbar>
+                  </LinkButton> */}
+                    <CurrencySelect />
+                  </Toolbar>
+                </div>
               </div>
-            </div>
-          </section>
-          <div
-            style={{
-              paddingLeft: '0.5rem',
-              fontSize: '0.9rem',
-              lineHeight: '1.5',
-            }}
-          ></div>
-        </div>
-        <div>
-          <WellContainer>
-            <Well>{new Date().toLocaleDateString()}</Well>
-            <Well style={{ flexShrink: 0, minWidth: 65, textAlign: 'center' }}>
-              {data && `${data.length} coin(s)`}
-            </Well>
-          </WellContainer>
-        </div>
-        <PlayerSearch onPlayerSelect={onPlayerSelect}></PlayerSearch>
-      </Top>
-    </Wrapper>
+            </section>
+            <div
+              style={{
+                paddingLeft: '0.5rem',
+                fontSize: '0.9rem',
+                lineHeight: '1.5',
+              }}
+            ></div>
+          </div>
+          <div>
+            <WellContainer>
+              <Well>{new Date().toLocaleDateString()}</Well>
+              <Well
+                style={{ flexShrink: 0, minWidth: 65, textAlign: 'center' }}
+              >
+                {data && `${data.length} coin(s)`}
+              </Well>
+            </WellContainer>
+          </div>
+          <PlayerSearch onPlayerSelect={onPlayerSelect}></PlayerSearch>
+        </Top>
+      </Wrapper>
+      {showMakeBet && (
+        <AddBet player={selectedPlayer} onClose={() => setShowMakeBet(false)} />
+      )}
+    </>
   );
 };
 
