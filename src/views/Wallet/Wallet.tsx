@@ -164,7 +164,16 @@ const Wallet = ({
         </Top>
       </Wrapper>
       {showMakeBet && (
-        <AddBet player={selectedPlayer} onClose={() => setShowMakeBet(false)} />
+        <AddBet
+          player={selectedPlayer}
+          onClose={() => {
+            setShowMakeBet(false);
+            // Hack to make things align properly, lib is not resetting this val on close
+            setTimeout(() => {
+              document.getElementById('root').style.position = null;
+            }, 0);
+          }}
+        />
       )}
     </>
   );
