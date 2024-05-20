@@ -47,26 +47,6 @@ const AddBet = ({ player }) => {
         </LinkButton>
       </WindowHeader>
       <SWindowContent>
-        <SearchWrapper>
-          <TextInput
-            placeholder="Search..."
-            value={searchPhrase}
-            onChange={handleSearch}
-            width="100%"
-            style={{ marginRight: '4px', width: '100%' }}
-          />
-          <Button
-            disabled={searchPhrase === ''}
-            onClick={() => setSearchPhrase('')}
-          >
-            Clear
-          </Button>
-        </SearchWrapper>
-        {/* <PlayerTable
-          searchPhrase={searchPhrase}
-          data={data}
-          onFollow={onFollow}
-        /> */}
         <h1>Add Bet</h1>
       </SWindowContent>
     </FullPageWindow>

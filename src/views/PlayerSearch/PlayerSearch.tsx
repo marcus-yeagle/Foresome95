@@ -10,6 +10,7 @@ import PlayerTable from './PlayerTable';
 
 const PlayerSearch = ({ data, onPlayerSelect }: any) => {
   const [searchPhrase, setSearchPhrase] = useState('');
+  const [hasSelection, setHasSelection] = useState(false);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
@@ -38,20 +39,26 @@ const PlayerSearch = ({ data, onPlayerSelect }: any) => {
         />
         <Button
           disabled={searchPhrase === ''}
-          onClick={() => setSearchPhrase('')}
+          onClick={() => {
+            setSearchPhrase('');
+            setHasSelection(false);
+          }}
         >
           Clear
         </Button>
       </SearchWrapper>
-      <div>
-        <PlayerTable
-          data={['foo', 'bar']}
-          onFollow={(p: string) => {
-            onPlayerSelect(p);
-          }}
-          searchPhrase={searchPhrase}
-        ></PlayerTable>
-      </div>
+      {searchPhrase && !hasSelection && (
+        <div>
+          <PlayerTable
+            data={['foo', 'bar']}
+            onFollow={(p: string) => {
+              onPlayerSelect(p);
+              setHasSelection(true);
+            }}
+            searchPhrase={searchPhrase}
+          ></PlayerTable>
+        </div>
+      )}
     </div>
   );
 };

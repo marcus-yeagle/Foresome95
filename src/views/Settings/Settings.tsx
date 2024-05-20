@@ -1,29 +1,32 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import styled, { css } from "styled-components";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
 
-import { AppDispatch, AppState } from "../../store";
-import { Background, Color } from "../../store/reducers/user";
-import { ThemeName } from "../../themes";
+import { AppDispatch, AppState } from '../../store';
+import { Background, Color } from '../../store/reducers/user';
+import { ThemeName } from '../../themes';
 
-import { createDisabledTextStyles } from "../../utils";
+import { createDisabledTextStyles } from '../../utils';
 
 import {
+  Button,
   Checkbox,
   Desktop,
   GroupBox,
+  NumberInput,
   Radio,
   Select,
   Slider,
   Tab,
   TabBody,
   Tabs,
-} from "react95";
+  TextInput,
+} from 'react95';
 
-import Fullpage from "../../components/Fullpage/Fullpage";
+import Fullpage from '../../components/Fullpage/Fullpage';
 
-import { SelectOption } from "react95/dist/Select/Select.types";
-import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+import { SelectOption } from 'react95/dist/Select/Select.types';
+import useLockBodyScroll from '../../hooks/useLockBodyScroll';
 import {
   setBackground,
   setCustomBackground,
@@ -32,8 +35,27 @@ import {
   setTheme,
   toggleScanLines,
   toggleVintageFont,
-} from "../../store/actions/user";
-import BackgroundColorPicker from "./BackgroundColorPicker";
+} from '../../store/actions/user';
+import BackgroundColorPicker from './BackgroundColorPicker';
+import SidesData from '../../store/sides051124.json';
+import PlayerSearch from '../PlayerSearch/PlayerSearch';
+
+// {
+//   "id": 6,
+//   "date": "2024-11-17",
+//   "betType": "Group Net Winner",
+//   "players": [
+//     {
+//       "name": "Westerheide, Pete",
+//       "indx": 9,
+//       "tee": "blue"
+//     }
+//   ],
+//   "score": null,
+//   "action": 150,
+//   "sides": null,
+//   "prop": ""
+// },
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -55,6 +77,9 @@ const Settings = ({
   setFontSize,
 }: Props) => {
   const [activeTab, setActiveTab] = useState(0);
+  const [newBetType, setNewBetType] = useState('');
+  const [newBetProp, setNewBetProp] = useState();
+  const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   const handleChange = (value: number) => setActiveTab(value);
 
@@ -73,14 +98,14 @@ const Settings = ({
   );
 
   return (
-    <Fullpage style={{ paddingTop: "0.5rem" }}>
+    <Fullpage style={{ paddingTop: '0.5rem' }}>
       <Tabs value={activeTab} onChange={handleChange}>
         <Tab value={0}>Background</Tab>
         <Tab value={1}>Appearance</Tab>
         <Tab value={2}>System</Tab>
-        {/* <Tab value={2}>About</Tab> */}
+        <Tab value={3}>Admin</Tab>
       </Tabs>
-      <TabBody style={{ height: 510 }}>
+      <TabBody>
         {activeTab === 0 && (
           <>
             <CenteredDesktop
@@ -124,71 +149,71 @@ const Settings = ({
               ))} */}
               <Radio
                 value="original"
-                onChange={() => setTheme("original")}
-                checked={theme === "original"}
+                onChange={() => setTheme('original')}
+                checked={theme === 'original'}
                 label="original"
               />
               <br />
               <Radio
                 value="rose"
-                onChange={() => setTheme("rose")}
-                checked={theme === "rose"}
+                onChange={() => setTheme('rose')}
+                checked={theme === 'rose'}
                 label="🌹 Rose"
               />
               <br />
               <Radio
                 value="rainyDay"
-                onChange={() => setTheme("rainyDay")}
-                checked={theme === "rainyDay"}
+                onChange={() => setTheme('rainyDay')}
+                checked={theme === 'rainyDay'}
                 label="☔️ Rainy Day"
               />
               <br />
               <Radio
                 value="travel"
-                onChange={() => setTheme("travel")}
-                checked={theme === "travel"}
+                onChange={() => setTheme('travel')}
+                checked={theme === 'travel'}
                 label="🧳 Travel"
               />
               <br />
               <Radio
                 value="marine"
-                onChange={() => setTheme("marine")}
-                checked={theme === "marine"}
+                onChange={() => setTheme('marine')}
+                checked={theme === 'marine'}
                 label="🛳 Marine"
               />
               <br />
               <Radio
                 value="olive"
-                onChange={() => setTheme("olive")}
-                checked={theme === "olive"}
+                onChange={() => setTheme('olive')}
+                checked={theme === 'olive'}
                 label="🍸 Olive"
               />
               <br />
               <Radio
                 value="theSixtiesUSA"
-                onChange={() => setTheme("theSixtiesUSA")}
-                checked={theme === "theSixtiesUSA"}
+                onChange={() => setTheme('theSixtiesUSA')}
+                checked={theme === 'theSixtiesUSA'}
                 label="🌷 The 60's USA"
               />
               <br />
               <Radio
                 value="candy"
-                onChange={() => setTheme("candy")}
-                checked={theme === "candy"}
+                onChange={() => setTheme('candy')}
+                checked={theme === 'candy'}
                 label="🍭 Candy"
               />
               <br />
               <Radio
                 value="tokyoDark"
-                onChange={() => setTheme("tokyoDark")}
-                checked={theme === "tokyoDark"}
+                onChange={() => setTheme('tokyoDark')}
+                checked={theme === 'tokyoDark'}
                 label="📟 Tokyo Dark"
               />
               <br />
               <Radio
                 value="vaporTeal"
-                onChange={() => setTheme("vaporTeal")}
-                checked={theme === "vaporTeal"}
+                onChange={() => setTheme('vaporTeal')}
+                checked={theme === 'vaporTeal'}
                 label="💨 Vapor Teal"
               />
             </GroupBox>
@@ -214,11 +239,11 @@ const Settings = ({
                     value={fontSize}
                     onChange={(val) => setFontSize(val)}
                     marks={[
-                      { value: 0.8, label: "0.8" },
-                      { value: 0.9, label: "0.9" },
-                      { value: 1, label: "1" },
-                      { value: 1.1, label: "1.1" },
-                      { value: 1.2, label: "1.2" },
+                      { value: 0.8, label: '0.8' },
+                      { value: 0.9, label: '0.9' },
+                      { value: 1, label: '1' },
+                      { value: 1.1, label: '1.1' },
+                      { value: 1.2, label: '1.2' },
                     ]}
                   />
                 </Pad>
@@ -246,8 +271,8 @@ const Settings = ({
                     min={0}
                     max={100}
                     marks={[
-                      { value: 0, label: "min" },
-                      { value: 100, label: "max" },
+                      { value: 0, label: 'min' },
+                      { value: 100, label: 'max' },
                     ]}
                     value={scanLinesIntensity}
                     onChange={(val) => setScanLinesIntensity(val)}
@@ -255,6 +280,86 @@ const Settings = ({
                 </Pad>
               </GroupBox>
             </SField>
+          </>
+        )}
+        {activeTab === 3 && (
+          <>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <div>
+                <small>Bet Type</small>
+                <Select
+                  style={{ flexShrink: 0 }}
+                  width={'100%'}
+                  onChange={(selectedOption) =>
+                    setNewBetType(selectedOption.value)
+                  }
+                  value={newBetType}
+                  options={[
+                    { value: 'Matchup', label: 'Matchup' },
+                    { value: 'Gross Score', label: 'Gross Score' },
+                    { value: 'Group Net Winner', label: 'Group Net Winner' },
+                    { value: 'Proposition', label: 'Prop' },
+                  ]}
+                />
+              </div>
+              {newBetType && newBetType !== 'Proposition' && (
+                <>
+                  <div>
+                    {selectedPlayers.length > 0 && (
+                      <ul>
+                        {selectedPlayers.map((p, i) => (
+                          <li key={i}>{`Player ${i + 1}: ${p}`}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                  <div>
+                    <PlayerSearch
+                      onPlayerSelect={(p) => {
+                        console.log(p);
+                        setSelectedPlayers([...selectedPlayers, p]);
+                      }}
+                    />
+                  </div>
+                </>
+              )}
+              {newBetType && newBetType === 'Matchup' && (
+                <div>
+                  <PlayerSearch
+                    onPlayerSelect={(p) => {
+                      console.log(p);
+                    }}
+                  />
+                </div>
+              )}
+              {newBetType === 'Proposition' && (
+                <div>
+                  <TextInput multiline rows={4} value={newBetProp} fullWidth />
+                </div>
+              )}
+              <div style={{ marginTop: '0.75rem' }}>
+                <small>Action</small>
+                <br />
+                <NumberInput
+                  defaultValue={-110}
+                  step={10}
+                  min={-1000}
+                  max={1000}
+                  width={'130'}
+                />
+              </div>
+              <div style={{ marginTop: '0.75rem' }}>
+                <Button disabled={!newBetType} fullWidth>
+                  Add Bet
+                </Button>
+              </div>
+            </div>
           </>
         )}
       </TabBody>
