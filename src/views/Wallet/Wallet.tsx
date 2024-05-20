@@ -30,6 +30,7 @@ import LinkButton from '../../components/LinkButton/LinkButton';
 import SearchIcon from '../../assets/img/system-search.png';
 import PlayerSearch from '../PlayerSearch/PlayerSearch';
 import AddBet from '../AddBet/AddBet';
+import CloseIcon from '../../components/CloseIcon/CloseIcon';
 
 // TODO: cleanup
 type WalletCoinData = {
@@ -100,18 +101,33 @@ const Wallet = ({
             </header>
             <Separator />
             <section>
-              <AvatarWrapper>
-                {selectedPlayer ? (
-                  <Avatar size={70} style={{ background: '#008080' }}>
-                    {selectedPlayer.split(',')[1].charAt(1) +
-                      selectedPlayer.split(',')[0].charAt(0)}
-                  </Avatar>
-                ) : (
-                  <Avatar size={70}></Avatar>
-                )}
-              </AvatarWrapper>
-
               <div>
+                <AvatarWrapper>
+                  {selectedPlayer ? (
+                    <Avatar size={70} style={{ background: '#008080' }}>
+                      {selectedPlayer.split(',')[1].charAt(1) +
+                        selectedPlayer.split(',')[0].charAt(0)}
+                    </Avatar>
+                  ) : (
+                    <Avatar size={70}></Avatar>
+                  )}
+                </AvatarWrapper>
+                {selectedPlayer && (
+                  <Button
+                    style={{ marginTop: '-30px' }}
+                    square
+                    size="sm"
+                    onClick={() => {
+                      setSelectedPlayer('');
+                      setSearchPhrase('');
+                    }}
+                  >
+                    <CloseIcon />
+                  </Button>
+                )}
+              </div>
+              <div>
+                <small>Total at Risk</small>
                 <TotalBalance>
                   {formatCurrency(atRiskValue, 'USD')}
                 </TotalBalance>
@@ -121,23 +137,8 @@ const Wallet = ({
                       disabled={!selectedPlayer}
                       onClick={() => setShowMakeBet(true)}
                     >
-                      Make Bet
+                      Place Bet
                     </Button>
-                    {/* <LinkButton
-                    disabled={!selectedPlayer}
-                    fullWidth
-                    style={{ marginRight: 8 }}
-                    to={{
-                      pathname: '/add/bet',
-                      state: {
-                        from: location.pathname,
-                        player: selectedPlayer,
-                      },
-                    }}
-                  >
-                    Make Bet
-                  </LinkButton> */}
-                    <CurrencySelect />
                   </Toolbar>
                 </div>
               </div>
