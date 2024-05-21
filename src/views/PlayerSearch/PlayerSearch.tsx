@@ -8,7 +8,7 @@ import SearchIcon from '../../assets/img/system-search.png';
 import { CoinsTableProps } from '../CoinSearch/CoinsTable';
 import PlayerTable from './PlayerTable';
 
-const PlayerSearch = ({ data, onPlayerSelect }: any) => {
+const PlayerSearch = ({ data, onPlayerSelect, onPlayerClear }: any) => {
   const [searchPhrase, setSearchPhrase] = useState('');
   const [hasSelection, setHasSelection] = useState(false);
 
@@ -42,6 +42,7 @@ const PlayerSearch = ({ data, onPlayerSelect }: any) => {
           onClick={() => {
             setSearchPhrase('');
             setHasSelection(false);
+            onPlayerClear();
           }}
         >
           Clear

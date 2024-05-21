@@ -91,6 +91,10 @@ const Wallet = ({
     setSelectedPlayer(p);
   }
 
+  function onPlayerClear() {
+    setSelectedPlayer('');
+  }
+
   return (
     <>
       <Wrapper>
@@ -157,11 +161,14 @@ const Wallet = ({
               <Well
                 style={{ flexShrink: 0, minWidth: 65, textAlign: 'center' }}
               >
-                {data && `${data.length} coin(s)`}
+                {`0 bets(s)`}
               </Well>
             </WellContainer>
           </div>
-          <PlayerSearch onPlayerSelect={onPlayerSelect}></PlayerSearch>
+          <PlayerSearch
+            onPlayerSelect={onPlayerSelect}
+            onPlayerClear={onPlayerClear}
+          ></PlayerSearch>
         </Top>
       </Wrapper>
       {showMakeBet && (

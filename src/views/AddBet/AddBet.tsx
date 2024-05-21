@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
-import { Button, WindowContent, TextField, Toolbar, TextInput } from 'react95';
+import {
+  Button,
+  WindowContent,
+  TextField,
+  Toolbar,
+  TextInput,
+  Select,
+} from 'react95';
 
 import FullPageWindow from '../../components/FullPageWindow/FullPageWindow';
 import WindowHeader from '../../components/WindowHeader/WindowHeader';
 import CloseIcon from '../../components/CloseIcon/CloseIcon';
 import LinkButton from '../../components/LinkButton/LinkButton';
 
-import JuggleIcon from '../../assets/img/insert-object.png';
+import JuggleIcon from '../../assets/img/insert-object-new.png';
+
+import SidesData from '../../store/sides051124.json';
 
 const AddBet = ({ player, onClose }) => {
   const [searchPhrase, setSearchPhrase] = useState('');
+  const [selectedSide, setSelectedSide] = useState(undefined);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
@@ -47,7 +57,32 @@ const AddBet = ({ player, onClose }) => {
         </Button>
       </WindowHeader>
       <SWindowContent>
-        <h1>Add Bet</h1>
+        <div>
+          <small>Select Side</small>
+          <Select
+            style={{ flexShrink: 0 }}
+            width={'100%'}
+            onChange={(side) => {
+              console.log(side);
+              setSelectedSide(side.value);
+            }}
+            value={selectedSide}
+            options={SidesData.map((side) => {
+              return {
+                label: `${side.betType} - ${
+                  side.betType !== 'Proposition'
+                    ? side.players.map((p) => p.name)
+                    : side.prop
+                }${side.betType === 'Gross Score' ? `: ${side.score}` : ''}`,
+                value: side,
+              };
+              // return {
+              //   label: side.betType,
+              //   value: String(side.id),
+              // };
+            })}
+          />
+        </div>
         <small>{player.name}</small>
       </SWindowContent>
     </FullPageWindow>
