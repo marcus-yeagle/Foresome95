@@ -8,6 +8,7 @@ import {
   Toolbar,
   TextInput,
   Select,
+  Slider,
 } from 'react95';
 
 import FullPageWindow from '../../components/FullPageWindow/FullPageWindow';
@@ -67,21 +68,141 @@ const AddBet = ({ player, onClose }) => {
               setSelectedSide(side.value);
             }}
             value={selectedSide}
-            options={SidesData.map((side) => {
-              return {
-                label: `${side.betType} - ${
-                  side.betType !== 'Proposition'
-                    ? side.players.map((p) => p.name)
-                    : side.prop
-                }${side.betType === 'Gross Score' ? `: ${side.score}` : ''}`,
-                value: side,
-              };
-              // return {
-              //   label: side.betType,
-              //   value: String(side.id),
-              // };
-            })}
+            options={[
+              // { label: '', value: undefined },
+              ...SidesData.map((side) => {
+                return {
+                  label: `${side.betType} - ${
+                    side.betType !== 'Proposition'
+                      ? side.players.map((p) => p.name)
+                      : side.prop
+                  }${side.betType === 'Gross Score' ? `: ${side.score}` : ''}`,
+                  value: side,
+                };
+              }),
+            ]}
           />
+        </div>
+        {selectedSide?.betType === 'Matchup' && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              padding: '1rem',
+            }}
+          >
+            <div>
+              <Button
+                style={{ padding: '0.75rem', minWidth: '100px' }}
+                size="lg"
+              >
+                {selectedSide?.sides[0].side}
+              </Button>
+            </div>
+            <div>
+              <Button
+                style={{ padding: '0.75rem', minWidth: '100px' }}
+                size="lg"
+              >
+                {selectedSide?.sides[1].side}
+                {selectedSide?.sides[1].action}
+              </Button>
+            </div>
+          </div>
+        )}
+        {selectedSide?.betType === 'Proposition' && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              padding: '1rem',
+            }}
+          >
+            <div>
+              <Button
+                style={{ padding: '0.75rem', minWidth: '100px' }}
+                size="lg"
+              >
+                Yes
+              </Button>
+            </div>
+            <div>
+              <Button
+                style={{ padding: '0.75rem', minWidth: '100px' }}
+                size="lg"
+              >
+                No
+              </Button>
+            </div>
+          </div>
+        )}
+        {selectedSide?.betType === 'Gross Score' && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              padding: '1rem',
+            }}
+          >
+            <div>
+              <Button
+                style={{ padding: '0.75rem', minWidth: '100px' }}
+                size="lg"
+              >
+                Over
+              </Button>
+            </div>
+            <div>
+              <Button
+                style={{ padding: '0.75rem', minWidth: '100px' }}
+                size="lg"
+              >
+                Under
+              </Button>
+            </div>
+          </div>
+        )}
+        <div style={{ display: 'flex' }}>
+          <div style={{ padding: '2rem 1rem 1rem 2rem' }}>
+            <Slider
+              size="300px"
+              min={1}
+              max={20}
+              step={1}
+              defaultValue={5}
+              marks={[
+                { value: 1, label: '$1' },
+                { value: 2, label: '$2' },
+                { value: 3, label: '' },
+                { value: 4, label: '' },
+                { value: 5, label: '$5' },
+                { value: 6, label: '' },
+                { value: 7, label: '' },
+                { value: 8, label: '$8' },
+                { value: 9, label: '' },
+                { value: 10, label: '$10' },
+                { value: 11, label: '' },
+                { value: 12, label: '$12' },
+                { value: 13, label: '' },
+                { value: 14, label: '$14' },
+                { value: 15, label: '' },
+                { value: 16, label: '$16' },
+                { value: 17, label: '' },
+                { value: 18, label: '$18' },
+                { value: 19, label: '' },
+                { value: 20, label: '$20' },
+              ]}
+              orientation="vertical"
+            />
+          </div>
+          <Button
+            style={{ marginTop: 'auto' }}
+            size="lg"
+            primary
+            fullWidth={true}
+          >
+            Submit
+          </Button>
         </div>
         <small>{player.name}</small>
       </SWindowContent>
