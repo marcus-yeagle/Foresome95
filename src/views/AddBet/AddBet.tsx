@@ -166,7 +166,7 @@ const AddBet = ({ player, onClose }) => {
           </div>
         )}
         <div style={{ display: 'flex' }}>
-          <div style={{ padding: '2rem 1rem 1rem 2rem' }}>
+          <div style={{ padding: '1rem 1rem 1rem 2rem' }}>
             <Slider
               size="300px"
               min={1}
@@ -246,7 +246,7 @@ const AddBet = ({ player, onClose }) => {
           </div>
         </div>
         <Button
-          style={{ marginTop: '2rem' }}
+          style={{ marginTop: '1.25rem' }}
           size="lg"
           primary
           fullWidth={true}
