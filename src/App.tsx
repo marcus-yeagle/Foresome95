@@ -41,7 +41,7 @@ const ResetStyles = createGlobalStyle<{
     font-style: normal
   }
   html {
-    font-size: ${({ fontSize }) => `${fontSize * 14}px`};
+    font-size: ${({ fontSize }) => `${fontSize * 16}px`};
   }
   html, body, #root {
     height: 100%;
