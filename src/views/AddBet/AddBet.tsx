@@ -238,13 +238,13 @@ const AddBet = ({ player, onClose }) => {
               <CurrentWager>{formatCurrency(currentWager, 'USD')}</CurrentWager>
               <small>To Win:</small>
               <CurrentWager>
-                {formatCurrency(1.1 * currentWager, 'USD')}
+                {formatCurrency(0.9 * currentWager, 'USD')}
               </CurrentWager>
             </GroupBox>
           </div>
         </div>
         <Button
-          style={{ marginTop: '3rem' }}
+          style={{ marginTop: '2rem' }}
           size="lg"
           primary
           fullWidth={true}
