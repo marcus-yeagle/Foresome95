@@ -144,7 +144,7 @@ const AddBet = ({ player, onClose }) => {
             style={{
               display: 'flex',
               justifyContent: 'space-around',
-              padding: '1rem',
+              padding: '0.65rem',
             }}
           >
             <div>
@@ -199,7 +199,9 @@ const AddBet = ({ player, onClose }) => {
               orientation="vertical"
             />
           </div>
-          <div style={{ width: '100%', paddingTop: '2rem' }}>
+          <div
+            style={{ width: '100%', paddingTop: '1rem', paddingLeft: '1rem' }}
+          >
             <GroupBox label={selectedSide?.betType}>
               {selectedSide?.betType === 'Group Net Winner' && (
                 <div
