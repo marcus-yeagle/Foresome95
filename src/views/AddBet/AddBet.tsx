@@ -9,6 +9,7 @@ import {
   TextInput,
   Select,
   Slider,
+  GroupBox,
 } from 'react95';
 
 import FullPageWindow from '../../components/FullPageWindow/FullPageWindow';
@@ -19,10 +20,12 @@ import LinkButton from '../../components/LinkButton/LinkButton';
 import JuggleIcon from '../../assets/img/insert-object-new.png';
 
 import SidesData from '../../store/sides051124.json';
+import { formatCurrency } from '../../utils';
 
 const AddBet = ({ player, onClose }) => {
   const [searchPhrase, setSearchPhrase] = useState('');
   const [selectedSide, setSelectedSide] = useState(undefined);
+  const [currentWager, setCurrentWager] = useState(5);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
@@ -169,7 +172,8 @@ const AddBet = ({ player, onClose }) => {
               min={1}
               max={20}
               step={1}
-              defaultValue={5}
+              defaultValue={currentWager}
+              onChange={(e) => setCurrentWager(e)}
               marks={[
                 { value: 1, label: '$1' },
                 { value: 2, label: '$2' },
@@ -195,16 +199,58 @@ const AddBet = ({ player, onClose }) => {
               orientation="vertical"
             />
           </div>
-          <Button
-            style={{ marginTop: 'auto' }}
-            size="lg"
-            primary
-            fullWidth={true}
-          >
-            Submit
-          </Button>
+          <div style={{ width: '100%', paddingTop: '2rem' }}>
+            <GroupBox label={selectedSide?.betType}>
+              {selectedSide?.betType === 'Group Net Winner' && (
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                  <h1
+                    style={{
+                      fontSize: '1.2rem',
+                      fontWeight: 'bold',
+                      fontStyle: 'italic',
+                    }}
+                  >
+                    {`${selectedSide?.players[0].name} (${selectedSide?.players[0].indx})`}
+                  </h1>
+                  <h1
+                    style={{
+                      fontSize: '1.2rem',
+                      fontWeight: 'bold',
+                      fontStyle: 'italic',
+                    }}
+                  >
+                    {selectedSide?.action > 0 ? '+' : ''}
+                    {selectedSide?.action}
+                  </h1>
+                </div>
+              )}
+              {/* <ul>
+                {selectedSide?.players.map((p) => (
+                  <>
+                    <li>{p.name}</li>
+                  </>
+                ))}
+              </ul> */}
+              <hr />
+              <small>Wager:</small>
+              <CurrentWager>{formatCurrency(currentWager, 'USD')}</CurrentWager>
+              <small>To Win:</small>
+              <CurrentWager>
+                {formatCurrency(1.1 * currentWager, 'USD')}
+              </CurrentWager>
+            </GroupBox>
+          </div>
         </div>
-        <small>{player.name}</small>
+        <Button
+          style={{ marginTop: '3rem' }}
+          size="lg"
+          primary
+          fullWidth={true}
+        >
+          Submit
+        </Button>
       </SWindowContent>
     </FullPageWindow>
   );
@@ -227,4 +273,11 @@ let SWindowContent = styled(WindowContent)`
 
 const SearchWrapper = styled(Toolbar)`
   margin: 0 -4px;
+`;
+const CurrentWager = styled.div`
+  height: 32px;
+  font-size: 2rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.75rem;
+  text-align: right;
 `;
