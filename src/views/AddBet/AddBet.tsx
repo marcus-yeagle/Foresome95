@@ -25,11 +25,35 @@ import { formatCurrency } from '../../utils';
 const AddBet = ({ player, onClose }) => {
   const [searchPhrase, setSearchPhrase] = useState('');
   const [selectedSide, setSelectedSide] = useState(undefined);
+  const [selectedSideType, setSelectedSideType] = useState(undefined);
+
   const [currentWager, setCurrentWager] = useState(5);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
   };
+
+  function convertAmericanToDecimal(americanOdds) {
+    // Convert the input to a number
+    const odds = americanOdds;
+
+    // Check if the conversion was successful
+    // if (isNaN(odds)) {
+    //   throw new Error('Invalid American odds string.');
+    // }
+
+    // Check if the odds are positive or negative
+    if (odds > 0) {
+      // Positive odds
+      return odds / 100 + 1;
+    } else if (odds < 0) {
+      // Negative odds
+      return 100 / Math.abs(odds) + 1;
+    } else {
+      // Odds are zero
+      return 1;
+    }
+  }
 
   useLockBodyScroll();
   return (
@@ -66,11 +90,11 @@ const AddBet = ({ player, onClose }) => {
           <Select
             style={{ flexShrink: 0 }}
             width={'100%'}
-            onChange={(side) => {
-              console.log(side);
-              setSelectedSide(side.value);
+            onChange={(sideType) => {
+              console.log(sideType);
+              setSelectedSideType(sideType.value);
             }}
-            value={selectedSide}
+            value={selectedSideType}
             options={[
               // { label: '', value: undefined },
               ...SidesData.map((side) => {
@@ -86,7 +110,7 @@ const AddBet = ({ player, onClose }) => {
             ]}
           />
         </div>
-        {selectedSide?.betType === 'Matchup' && (
+        {selectedSideType?.betType !== 'Group Net Winner' && (
           <div
             style={{
               display: 'flex',
@@ -96,71 +120,22 @@ const AddBet = ({ player, onClose }) => {
           >
             <div>
               <Button
+                onClick={() => setSelectedSide(selectedSideType?.sides[0])}
                 style={{ padding: '0.75rem', minWidth: '100px' }}
                 size="lg"
               >
-                {selectedSide?.sides[0].side}
+                {selectedSideType?.sides[0].side}&nbsp;&nbsp;&nbsp;
+                {`(${selectedSideType?.sides[0].action})`}
               </Button>
             </div>
             <div>
               <Button
+                onClick={() => setSelectedSide(selectedSideType?.sides[1])}
                 style={{ padding: '0.75rem', minWidth: '100px' }}
                 size="lg"
               >
-                {selectedSide?.sides[1].side}
-                {selectedSide?.sides[1].action}
-              </Button>
-            </div>
-          </div>
-        )}
-        {selectedSide?.betType === 'Proposition' && (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              padding: '1rem',
-            }}
-          >
-            <div>
-              <Button
-                style={{ padding: '0.75rem', minWidth: '100px' }}
-                size="lg"
-              >
-                Yes
-              </Button>
-            </div>
-            <div>
-              <Button
-                style={{ padding: '0.75rem', minWidth: '100px' }}
-                size="lg"
-              >
-                No
-              </Button>
-            </div>
-          </div>
-        )}
-        {selectedSide?.betType === 'Gross Score' && (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              padding: '0.65rem',
-            }}
-          >
-            <div>
-              <Button
-                style={{ padding: '0.75rem', minWidth: '100px' }}
-                size="lg"
-              >
-                Over
-              </Button>
-            </div>
-            <div>
-              <Button
-                style={{ padding: '0.75rem', minWidth: '100px' }}
-                size="lg"
-              >
-                Under
+                {selectedSideType?.sides[1].side}&nbsp;&nbsp;&nbsp;
+                {`(${selectedSideType?.sides[1].action})`}
               </Button>
             </div>
           </div>
@@ -206,8 +181,8 @@ const AddBet = ({ player, onClose }) => {
               paddingLeft: '1rem',
             }}
           >
-            <GroupBox label={selectedSide?.betType}>
-              {selectedSide?.betType === 'Group Net Winner' && (
+            <GroupBox label={selectedSideType?.betType}>
+              {selectedSideType?.betType === 'Group Net Winner' && (
                 <div
                   style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
@@ -218,7 +193,7 @@ const AddBet = ({ player, onClose }) => {
                       fontStyle: 'italic',
                     }}
                   >
-                    {`${selectedSide?.players[0].name} (${selectedSide?.players[0].indx})`}
+                    {`${selectedSideType?.players[0].name} (${selectedSideType?.players[0].indx})`}
                   </h1>
                   <h1
                     style={{
@@ -227,24 +202,20 @@ const AddBet = ({ player, onClose }) => {
                       fontStyle: 'italic',
                     }}
                   >
-                    {selectedSide?.action > 0 ? '+' : ''}
-                    {selectedSide?.action}
+                    {selectedSideType?.action > 0 ? '+' : ''}
+                    {selectedSideType?.action}
                   </h1>
                 </div>
               )}
-              {/* <ul>
-                {selectedSide?.players.map((p) => (
-                  <>
-                    <li>{p.name}</li>
-                  </>
-                ))}
-              </ul> */}
               <hr />
               <small>Wager:</small>
               <CurrentWager>{formatCurrency(currentWager, 'USD')}</CurrentWager>
               <small>To Win:</small>
               <CurrentWager>
-                {formatCurrency(0.9 * currentWager, 'USD')}
+                {formatCurrency(
+                  convertAmericanToDecimal(selectedSide?.action) * currentWager,
+                  'USD'
+                ) ?? 0}
               </CurrentWager>
             </GroupBox>
           </div>
