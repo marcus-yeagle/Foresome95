@@ -182,38 +182,43 @@ const AddBet = ({ player, onClose }) => {
             }}
           >
             <GroupBox label={selectedSideType?.betType}>
-              {selectedSideType?.betType === 'Group Net Winner' && (
-                <div
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <h1
-                    style={{
-                      fontSize: '1.2rem',
-                      fontWeight: 'bold',
-                      fontStyle: 'italic',
-                    }}
+              {selectedSideType?.betType === 'Group Net Winner' ||
+                (selectedSideType?.betType === 'Gross Score' && (
+                  <div
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
-                    {`${selectedSideType?.players[0].name} (${selectedSideType?.players[0].indx})`}
-                  </h1>
-                  <h1
-                    style={{
-                      fontSize: '1.2rem',
-                      fontWeight: 'bold',
-                      fontStyle: 'italic',
-                    }}
-                  >
-                    {selectedSideType?.action > 0 ? '+' : ''}
-                    {selectedSideType?.action}
-                  </h1>
-                </div>
-              )}
+                    <small style={{ fontWeight: 'bold' }}>
+                      {selectedSideType?.score}
+                    </small>
+                    <h1
+                      style={{
+                        fontSize: '1.2rem',
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      {`${selectedSideType?.players[0].name} (${selectedSideType?.players[0].indx})`}
+                    </h1>
+                    <h1
+                      style={{
+                        fontSize: '1.2rem',
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      {selectedSideType?.action > 0 ? '+' : ''}
+                      {selectedSideType?.action}
+                    </h1>
+                  </div>
+                ))}
               <hr />
               <small>Wager:</small>
               <CurrentWager>{formatCurrency(currentWager, 'USD')}</CurrentWager>
               <small>To Win:</small>
               <CurrentWager>
                 {formatCurrency(
-                  convertAmericanToDecimal(selectedSide?.action) * currentWager,
+                  convertAmericanToDecimal(selectedSide?.action ?? -110) *
+                    currentWager,
                   'USD'
                 ) ?? 0}
               </CurrentWager>
