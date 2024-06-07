@@ -140,7 +140,7 @@ const AddBet = ({ player, onClose }) => {
             </div>
           </div>
         )}
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
           <div style={{ padding: '1.5rem 1rem 1rem 2rem' }}>
             <Slider
               size="300px"
