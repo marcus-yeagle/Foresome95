@@ -37,7 +37,7 @@ import {
   toggleVintageFont,
 } from '../../store/actions/user';
 import BackgroundColorPicker from './BackgroundColorPicker';
-import SidesData from '../../store/sides051124.json';
+// import SidesData from '../../store/sides051124.json';
 import PlayerSearch from '../PlayerSearch/PlayerSearch';
 
 // {
@@ -100,126 +100,11 @@ const Settings = ({
   return (
     <Fullpage style={{ paddingTop: '0.5rem' }}>
       <Tabs value={activeTab} onChange={handleChange}>
-        <Tab value={0}>Background</Tab>
-        <Tab value={1}>Appearance</Tab>
-        <Tab value={2}>System</Tab>
-        <Tab value={3}>Admin</Tab>
+        <Tab value={0}>System</Tab>
+        <Tab value={1}>Admin</Tab>
       </Tabs>
       <TabBody>
         {activeTab === 0 && (
-          <>
-            <CenteredDesktop
-              backgroundStyles={{ background: background.value }}
-            />
-            <GroupBox label="Wallpaper:" style={{ marginTop: 20 }}>
-              <Select
-                width="100%"
-                onChange={onBackgroundChange}
-                menuMaxHeight={300}
-                options={backgrounds}
-                value={background.value}
-              />
-              <CustomColorField
-                isDisabled={backgrounds[0].value !== background.value}
-              >
-                <label>Custom color:</label>
-
-                <BackgroundColorPicker
-                  value={backgrounds[0].value}
-                  disabled={backgrounds[0].value !== background.value}
-                  onChange={swag}
-                />
-              </CustomColorField>
-            </GroupBox>
-          </>
-        )}
-        {activeTab === 1 && (
-          <SField>
-            <GroupBox label="Theme:">
-              {/* {Object.keys(themesLabels).map((themeName) => (
-                <>
-                  <Radio
-                    value={themeName}
-                    onChange={() => setTheme(themeName)}
-                    checked={theme === themeName}
-                    label={themesLabels[themeName]}
-                  />
-                  <br />
-                </>
-              ))} */}
-              <Radio
-                value="original"
-                onChange={() => setTheme('original')}
-                checked={theme === 'original'}
-                label="original"
-              />
-              <br />
-              <Radio
-                value="rose"
-                onChange={() => setTheme('rose')}
-                checked={theme === 'rose'}
-                label="🌹 Rose"
-              />
-              <br />
-              <Radio
-                value="rainyDay"
-                onChange={() => setTheme('rainyDay')}
-                checked={theme === 'rainyDay'}
-                label="☔️ Rainy Day"
-              />
-              <br />
-              <Radio
-                value="travel"
-                onChange={() => setTheme('travel')}
-                checked={theme === 'travel'}
-                label="🧳 Travel"
-              />
-              <br />
-              <Radio
-                value="marine"
-                onChange={() => setTheme('marine')}
-                checked={theme === 'marine'}
-                label="🛳 Marine"
-              />
-              <br />
-              <Radio
-                value="olive"
-                onChange={() => setTheme('olive')}
-                checked={theme === 'olive'}
-                label="🍸 Olive"
-              />
-              <br />
-              <Radio
-                value="theSixtiesUSA"
-                onChange={() => setTheme('theSixtiesUSA')}
-                checked={theme === 'theSixtiesUSA'}
-                label="🌷 The 60's USA"
-              />
-              <br />
-              <Radio
-                value="candy"
-                onChange={() => setTheme('candy')}
-                checked={theme === 'candy'}
-                label="🍭 Candy"
-              />
-              <br />
-              <Radio
-                value="tokyoDark"
-                onChange={() => setTheme('tokyoDark')}
-                checked={theme === 'tokyoDark'}
-                label="📟 Tokyo Dark"
-              />
-              <br />
-              <Radio
-                value="vaporTeal"
-                onChange={() => setTheme('vaporTeal')}
-                checked={theme === 'vaporTeal'}
-                label="💨 Vapor Teal"
-              />
-            </GroupBox>
-          </SField>
-        )}
-        {activeTab === 2 && (
           <>
             <SField>
               <GroupBox label="Font:">
@@ -280,9 +165,65 @@ const Settings = ({
                 </Pad>
               </GroupBox>
             </SField>
+            <SField>
+              <GroupBox label="Theme:">
+                {/* {Object.keys(themesLabels).map((themeName) => (
+                <>
+                  <Radio
+                    value={themeName}
+                    onChange={() => setTheme(themeName)}
+                    checked={theme === themeName}
+                    label={themesLabels[themeName]}
+                  />
+                  <br />
+                </>
+              ))} */}
+                <Radio
+                  value="original"
+                  onChange={() => setTheme('original')}
+                  checked={theme === 'original'}
+                  label="original"
+                />
+                <br />
+                <Radio
+                  value="rose"
+                  onChange={() => setTheme('rose')}
+                  checked={theme === 'rose'}
+                  label="🌹 Rose"
+                />
+                <br />
+                <Radio
+                  value="olive"
+                  onChange={() => setTheme('olive')}
+                  checked={theme === 'olive'}
+                  label="🍸 Olive"
+                />
+                <br />
+                <Radio
+                  value="theSixtiesUSA"
+                  onChange={() => setTheme('theSixtiesUSA')}
+                  checked={theme === 'theSixtiesUSA'}
+                  label="🌷 The 60's USA"
+                />
+                <br />
+                <Radio
+                  value="tokyoDark"
+                  onChange={() => setTheme('tokyoDark')}
+                  checked={theme === 'tokyoDark'}
+                  label="📟 Tokyo Dark"
+                />
+                <br />
+                <Radio
+                  value="vaporTeal"
+                  onChange={() => setTheme('vaporTeal')}
+                  checked={theme === 'vaporTeal'}
+                  label="💨 Vapor Teal"
+                />
+              </GroupBox>
+            </SField>
           </>
         )}
-        {activeTab === 3 && (
+        {activeTab === 1 && (
           <>
             <div
               style={{
@@ -344,7 +285,18 @@ const Settings = ({
                 </div>
               )}
               <div style={{ marginTop: '0.75rem' }}>
-                <small>Action</small>
+                <small>Yes/Over Action</small>
+                <br />
+                <NumberInput
+                  defaultValue={-110}
+                  step={10}
+                  min={-1000}
+                  max={1000}
+                  width={'130'}
+                />
+              </div>
+              <div style={{ marginTop: '0.75rem' }}>
+                <small>No/Under Action</small>
                 <br />
                 <NumberInput
                   defaultValue={-110}

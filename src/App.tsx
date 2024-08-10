@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { AppState } from './store';
 import { createGlobalStyle, ThemeProvider, css } from 'styled-components';
-import { styleReset } from 'react95';
+import { styleReset, Hourglass } from 'react95';
 
 import themes from './themes';
 
@@ -11,14 +11,12 @@ import ms_sans_serif from 'react95/dist/fonts/ms_sans_serif.woff2';
 import ms_sans_serif_bold from 'react95/dist/fonts/ms_sans_serif_bold.woff2';
 
 import Dashboard from './views/Dashboard/Dashboard';
-import CoinDetails from './views/CoinDetails/CoinDetails';
-import CoinSearch from './views/CoinSearch/CoinSearch';
 import Wallet from './views/Wallet/Wallet';
-import News from './views/News/News';
 import Settings from './views/Settings/Settings';
 import Viewport from './components/Viewport/Viewport';
 import NavBar from './components/NavBar/NavBar';
 import AddBet from './views/AddBet/AddBet';
+import { fetchSidesData } from './store/actions/sides';
 
 const ResetStyles = createGlobalStyle<{
   vintageFont: boolean;
@@ -153,6 +151,9 @@ const App = ({
   scanLines,
   scanLinesIntensity,
 }: ReturnType<typeof mapStateToProps>) => {
+  const dispatch = useDispatch();
+  dispatch(fetchSidesData());
+
   return (
     <Viewport>
       <ThemeProvider theme={themes[theme]}>
@@ -174,7 +175,7 @@ const App = ({
               <Switch>
                 <Route exact path={'/'} component={Dashboard} />
                 {/* <Route exact path={'/coins/:coin'} component={CoinDetails} /> */}
-                <Route exact path={'/search'} component={CoinSearch} />
+                {/* <Route exact path={'/search'} component={CoinSearch} /> */}
                 <Route exact path={'/add/bet'} component={AddBet} />
                 <Route path={'/wallet/'} component={Wallet} />
                 {/* <Route exact path={'/news'} component={News} /> */}

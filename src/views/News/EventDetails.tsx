@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { WindowContent, Select, Cutout, Toolbar, Button, Bar } from "react95";
+import { WindowContent, Select, Cutout, Toolbar, Button, Bar } from 'react95';
 
-import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
-import WindowHeader from "../../components/WindowHeader/WindowHeader";
-import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-import EventExplorerIcon from "../../assets/img/eventExplorer.png";
-import CloseIcon from "../../components/CloseIcon/CloseIcon";
-import { CoinGecko } from "../../API";
+import FullPageWindow from '../../components/FullPageWindow/FullPageWindow';
+import WindowHeader from '../../components/WindowHeader/WindowHeader';
+import useLockBodyScroll from '../../hooks/useLockBodyScroll';
+import EventExplorerIcon from '../../assets/img/eventExplorer.png';
+import CloseIcon from '../../components/CloseIcon/CloseIcon';
+import { CoinGecko } from '../../API/SidesService';
 
 const EventDetails = ({
   events: eventsProp,
@@ -42,17 +42,17 @@ const EventDetails = ({
         <img
           alt="Planet Earth icon"
           src={EventExplorerIcon}
-          style={{ height: 24, marginTop: -1, marginRight: "0.5rem" }}
+          style={{ height: 24, marginTop: -1, marginRight: '0.5rem' }}
         />
         Event explorer
         <Button
           square
           size="sm"
           style={{
-            position: "absolute",
+            position: 'absolute',
             right: 2,
             top: 3,
-            fontWeight: "bold",
+            fontWeight: 'bold',
           }}
           onClick={() => setOpenedEvent(null)}
         >
@@ -62,7 +62,7 @@ const EventDetails = ({
       <SWindowContent>
         <EventSelectWrapper>
           <div
-            style={{ flexShrink: 0, margin: "0 0.5rem 0 0.125rem", height: 35 }}
+            style={{ flexShrink: 0, margin: '0 0.5rem 0 0.125rem', height: 35 }}
           >
             <Bar />
             <Bar />
@@ -72,7 +72,7 @@ const EventDetails = ({
             disabled
             options={events}
             value={events[openedEventIndex].value}
-            width={"100%"}
+            width={'100%'}
             onChange={(e) => setOpenedEvent(e.value)}
           />
         </EventSelectWrapper>
@@ -82,7 +82,7 @@ const EventDetails = ({
 
             <Row>
               <Col>{organizer}</Col>
-              <Col style={{ textAlign: "right" }}>
+              <Col style={{ textAlign: 'right' }}>
                 {start_date}-{end_date}
               </Col>
             </Row>
@@ -174,7 +174,7 @@ const EventSelectWrapper = styled.div`
   padding-top: calc(0.25rem + 2px);
   border: 2px solid ${({ theme }) => theme.borderDark};
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

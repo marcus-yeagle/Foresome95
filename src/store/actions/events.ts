@@ -1,12 +1,12 @@
-import API, { CoinGecko } from "../../API";
+import API, { CoinGecko } from '../../API/SidesService';
 
-import { AppThunk } from "..";
+import { AppThunk } from '..';
 import {
   FETCH_EVENTS_ERROR,
   FETCH_EVENTS_REQUEST,
   FETCH_EVENTS_SUCCESS,
   SET_EVENT_SEEN,
-} from "./actionConstants";
+} from './actionConstants';
 
 export const setEvents = (events: CoinGecko.Event[]) =>
   ({

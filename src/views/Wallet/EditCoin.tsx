@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
-import styled from "styled-components";
-import { connect } from "react-redux";
+import React, { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
 
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, withRouter } from 'react-router';
 
-import { setUserHoldings, deleteUserHoldings } from "../../store/actions/user";
-import { formatCurrency } from "../../utils";
+import { setUserHoldings, deleteUserHoldings } from '../../store/actions/user';
+import { formatCurrency } from '../../utils';
 
-import API, { FormattedCoinData } from "../../API";
+import API, { FormattedCoinData } from '../../API/SidesService';
 
-import { Toolbar, Button, Window, WindowContent, TextField } from "react95";
+import { Toolbar, Button, Window, WindowContent, TextField } from 'react95';
 
-import WindowHeader from "../../components/WindowHeader/WindowHeader";
-import CoinIcon from "../../components/CoinIcon/CoinIcon";
-import CloseIcon from "../../components/CloseIcon/CloseIcon";
-import { AppDispatch, AppState } from "../../store";
+import WindowHeader from '../../components/WindowHeader/WindowHeader';
+import CoinIcon from '../../components/CoinIcon/CoinIcon';
+import CloseIcon from '../../components/CloseIcon/CloseIcon';
+import { AppDispatch, AppState } from '../../store';
 
 type OwnProps = RouteComponentProps<{ coin: string }>;
 
@@ -74,16 +74,16 @@ const Layout = ({
       <EditWindow onClick={(e) => e.stopPropagation()}>
         <WindowHeader>
           {/* TODO: is it good approach? */}
-          <CoinIcon src={data ? data.imageURL : ""} />
-          {" " + coin}
+          <CoinIcon src={data ? data.imageURL : ''} />
+          {' ' + coin}
           <Button
             square
             size="sm"
             style={{
-              position: "absolute",
+              position: 'absolute',
               right: 2,
               top: 3,
-              fontWeight: "bold",
+              fontWeight: 'bold',
             }}
             onClick={goBack}
           >
@@ -102,17 +102,17 @@ const Layout = ({
               disabled={!data}
               value={amount}
               onChange={handleAmountChange}
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             />
           </Field>
-          <Toolbar style={{ justifyContent: "flex-end" }}>
+          <Toolbar style={{ justifyContent: 'flex-end' }}>
             {holdings !== null && (
-              <Button style={{ width: "50%" }} onClick={handleDelete}>
+              <Button style={{ width: '50%' }} onClick={handleDelete}>
                 Delete
               </Button>
             )}
             <Button
-              style={{ width: "50%" }}
+              style={{ width: '50%' }}
               onClick={handleAccept}
               disabled={!data}
               primary

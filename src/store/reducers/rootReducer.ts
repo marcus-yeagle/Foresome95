@@ -1,15 +1,11 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import coinsReducer from "./coins";
-import userReducer from "./user";
-import newsReducer from "./news";
-import eventsReducer from "./events";
+import sidesReducer from './sides';
+import userReducer from './user';
 
 const rootReducer = combineReducers({
-  coins: coinsReducer,
+  sides: sidesReducer,
   user: userReducer,
-  news: newsReducer,
-  events: eventsReducer,
 });
 
 export default rootReducer;

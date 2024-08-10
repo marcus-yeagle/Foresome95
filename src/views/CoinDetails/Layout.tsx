@@ -1,23 +1,23 @@
-import React from "react";
+import React from 'react';
 // import propTypes from "prop-types";
 
-import styled from "styled-components";
-import { Cutout, GroupBox, Toolbar, WindowContent, Checkbox } from "react95";
+import styled from 'styled-components';
+import { Cutout, GroupBox, Toolbar, WindowContent, Checkbox } from 'react95';
 
-import SimpleLineChart from "./SimpleLineChart";
-import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
-import WindowHeader from "../../components/WindowHeader/WindowHeader";
-import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
-import CenteredHourglass from "../../components/CenteredHourglass/CenteredHourglass";
-import CoinIcon from "../../components/CoinIcon/CoinIcon";
-import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import SimpleLineChart from './SimpleLineChart';
+import FullPageWindow from '../../components/FullPageWindow/FullPageWindow';
+import WindowHeader from '../../components/WindowHeader/WindowHeader';
+import ButtonSwitch from '../../components/ButtonSwitch/ButtonSwitch';
+import CenteredHourglass from '../../components/CenteredHourglass/CenteredHourglass';
+import CoinIcon from '../../components/CoinIcon/CoinIcon';
+import CloseIcon from '../../components/CloseIcon/CloseIcon';
 
-import LinkButton from "../../components/LinkButton/LinkButton";
+import LinkButton from '../../components/LinkButton/LinkButton';
 
-import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-import { CryptoCompare } from "../../API";
+import useLockBodyScroll from '../../hooks/useLockBodyScroll';
+import { CryptoCompare } from '../../API/SidesService';
 
-export type Timespan = "24H" | "1H" | "1M" | "3M" | "1Y";
+export type Timespan = '24H' | '1H' | '1M' | '3M' | '1Y';
 
 type Props = {
   info: {
@@ -67,7 +67,7 @@ const Layout = ({
   useLockBodyScroll();
 
   let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
-  coinName = symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
+  coinName = symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = '-';
   if (info && data) {
     coinName = info.coinName;
     symbol = info.symbol;
@@ -81,15 +81,15 @@ const Layout = ({
     <SWindow>
       <WindowHeader>
         <CoinIcon src={imageURL} />
-        {`${coinName}.${symbol}`.split(" ").join("_").toLowerCase()}
+        {`${coinName}.${symbol}`.split(' ').join('_').toLowerCase()}
         <LinkButton
           square
           size="sm"
           style={{
-            position: "absolute",
+            position: 'absolute',
             right: 2,
             top: 3,
-            fontWeight: "bold",
+            fontWeight: 'bold',
           }}
           goBack
         >
@@ -106,7 +106,7 @@ const Layout = ({
             onChange={onFollow}
           />
           <LinkButton to={`/wallet/${(info || {}).symbol}`} disabled={!info}>
-            {inWallet ? "Edit in wallet" : "Add to wallet"}
+            {inWallet ? 'Edit in wallet' : 'Add to wallet'}
           </LinkButton>
         </TopToolbar>
         <ChartWrapper>
@@ -127,36 +127,36 @@ const Layout = ({
           size="sm"
           buttons={[
             {
-              label: "1H",
-              onClick: () => onTimeSpanChange("1H"),
-              active: timeSpan === "1H",
+              label: '1H',
+              onClick: () => onTimeSpanChange('1H'),
+              active: timeSpan === '1H',
             },
             {
-              label: "24H",
-              onClick: () => onTimeSpanChange("24H"),
-              active: timeSpan === "24H",
+              label: '24H',
+              onClick: () => onTimeSpanChange('24H'),
+              active: timeSpan === '24H',
             },
             {
-              label: "1M",
-              onClick: () => onTimeSpanChange("1M"),
-              active: timeSpan === "1M",
+              label: '1M',
+              onClick: () => onTimeSpanChange('1M'),
+              active: timeSpan === '1M',
             },
             {
-              label: "3M",
-              onClick: () => onTimeSpanChange("3M"),
-              active: timeSpan === "3M",
+              label: '3M',
+              onClick: () => onTimeSpanChange('3M'),
+              active: timeSpan === '3M',
             },
             {
-              label: "1Y",
-              onClick: () => onTimeSpanChange("1Y"),
-              active: timeSpan === "1Y",
+              label: '1Y',
+              onClick: () => onTimeSpanChange('1Y'),
+              active: timeSpan === '1Y',
             },
           ]}
         />
-        <SGroupBox label={"Coin information"}>
+        <SGroupBox label={'Coin information'}>
           <Row>
             <Col>Rank:</Col>
-            <Col>{sortOrder ? sortOrder : "-"}</Col>
+            <Col>{sortOrder ? sortOrder : '-'}</Col>
           </Row>
           <Row>
             <Col>High (24h):</Col>

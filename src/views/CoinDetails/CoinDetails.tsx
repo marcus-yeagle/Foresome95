@@ -1,12 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 
-import API, { CryptoCompare } from "../../API";
-import { AppDispatch, AppState } from "../../store";
-import { fetchCoinsInfo } from "../../store/actions/coins";
-import { setFollowedCoin } from "../../store/actions/user";
-import Layout, { Timespan } from "./Layout";
+import API, { CryptoCompare } from '../../API/SidesService';
+import { AppDispatch, AppState } from '../../store';
+import { fetchCoinsInfo } from '../../store/actions/coins';
+import { setFollowedCoin } from '../../store/actions/user';
+import Layout, { Timespan } from './Layout';
 
 function HLCAverage(high: number, low: number, close: number) {
   return (high + low + close) / 3;
@@ -39,7 +39,7 @@ const Swag = (props: Props) => {
   }>({
     data: null,
     historicalData: null,
-    timeSpan: "24H",
+    timeSpan: '24H',
   });
 
   const { following, coin, currency, info, setFollowedCoin, inWallet } = props;
@@ -74,7 +74,7 @@ const Swag = (props: Props) => {
             timeSpan: newTimeSpan,
           }));
       } catch (error) {
-        console.log("Error in CoinDetails handleFetchHistoricalData ");
+        console.log('Error in CoinDetails handleFetchHistoricalData ');
         if (isMounted.current)
           setState((state) => ({
             ...state,

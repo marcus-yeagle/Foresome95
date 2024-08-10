@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import useWindowSize from "../../hooks/useWindowSize";
-import iPhoneImage from "../../assets/img/iphone.png";
+import React from 'react';
+import styled from 'styled-components';
+import useWindowSize from '../../hooks/useWindowSize';
+import iPhoneImage from '../../assets/img/iphone.png';
 
 type Props = React.ComponentProps<typeof StyledViewport>;
 
@@ -28,13 +28,13 @@ const StyledViewport = styled.div<{ maxHeight: number; maxWidth: number }>`
   transform: translate(-50%, -50%);
   height: ${({ maxHeight }) => maxHeight}px;
   width: ${({ maxWidth }) => maxWidth}px;
-
+  background: #008080;
   @media only screen and (min-width: 450px) and (min-height: 600px) {
     height: 680px;
     width: 400px;
     &:before,
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       top: 50%;
       left: 50%;

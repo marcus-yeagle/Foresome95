@@ -19,7 +19,7 @@ import LinkButton from '../../components/LinkButton/LinkButton';
 
 import JuggleIcon from '../../assets/img/insert-object-new.png';
 
-import SidesData from '../../store/sides051124.json';
+// import SidesData from '../../store/sides051124.json';
 import { formatCurrency } from '../../utils';
 
 const AddBet = ({ player, onClose }) => {
@@ -95,9 +95,22 @@ const AddBet = ({ player, onClose }) => {
               setSelectedSideType(sideType.value);
             }}
             value={selectedSideType}
+            // options={[
+            //   // { label: '', value: undefined },
+            //   ...SidesData.map((side) => {
+            //     return {
+            //       label: `${side.betType} - ${
+            //         side.betType !== 'Proposition'
+            //           ? side.players.map((p) => p.name)
+            //           : side.prop
+            //       }${side.betType === 'Gross Score' ? `: ${side.score}` : ''}`,
+            //       value: side,
+            //     };
+            //   }),
+            // ]}
             options={[
               // { label: '', value: undefined },
-              ...SidesData.map((side) => {
+              ...[].map((side) => {
                 return {
                   label: `${side.betType} - ${
                     side.betType !== 'Proposition'

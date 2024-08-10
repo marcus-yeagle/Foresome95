@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import packageJSON from '../../../package.json';
 
-import CoinsTable from './CoinsTable';
+import CoinsTable from './SidesTable';
 
 import Fullpage from '../../components/Fullpage/Fullpage';
 import ButtonSwitch from '../../components/ButtonSwitch/ButtonSwitch';
@@ -13,20 +13,15 @@ import LinkButton from '../../components/LinkButton/LinkButton';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
 import { CoinsData, CoinsInfo } from '../../store/reducers/coins';
 import MoneyIcon from '../../assets/img/money-trans.png';
-import SidesData from '../../store/sides051124.json';
+import SidesTable from './SidesTable';
+// import SidesData from '../../store/sides051124.json';
 
-type Props = {
-  data: (CoinsInfo[string] & CoinsData[string])[] | null;
-  showingFollowing: boolean;
-  showFollowing: () => void;
-  showTop: () => void;
-};
 const DashboardLayout = ({
-  data,
+  sides,
   showingFollowing,
   showFollowing,
   showTop,
-}: Props) => {
+}) => {
   useLockBodyScroll();
   const location = useLocation();
   const currentUrl = location.pathname + location.search;
@@ -56,9 +51,9 @@ const DashboardLayout = ({
           </LinkButton>
         )} */}
       </Header>
-      <CoinsTableWrapper>
-        <CoinsTable data={data} />
-      </CoinsTableWrapper>
+      <SidesTableWrapper>
+        <SidesTable sides={sides} />
+      </SidesTableWrapper>
       <ButtonSwitch
         size="md"
         buttons={[
@@ -112,7 +107,7 @@ let Header = styled.header`
   }
 `;
 
-let CoinsTableWrapper = styled.div`
+let SidesTableWrapper = styled.div`
   flex: 1;
   overflow: hidden;
   & > div {
