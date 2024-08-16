@@ -9,7 +9,7 @@ const sides = require('./sides051124.json');
 
 server.use(cors());
 
-server.use(express.static(path.join(__dirname, './../build')));
+server.use(express.static(path.join(__dirname, '../../build')));
 
 // server.get('/', (req, res) => {
 //   try {
