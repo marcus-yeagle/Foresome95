@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 4000;
 
 const sides = require('./sides051124.json');
 
-const connectonString =
+const connectionString =
   'mongodb://iad2-c18-2.mongo.objectrocket.com:52167,iad2-c18-0.mongo.objectrocket.com:52167,iad2-c18-1.mongo.objectrocket.com:52167/?replicaSet=9e1499aa02764da499369088784b7d13&ssl=true';
 
 server.use(cors());
