@@ -33,12 +33,9 @@ server.get('/api/sides', (req, res) => {
           elems.push(element);
         });
         res.status(201).json(elems);
+        res.send(elems);
       }
     });
-
-    setTimeout(() => {
-      res.send(sides);
-    }, 1500);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'An error occurred' });
