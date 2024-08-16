@@ -39,6 +39,7 @@ server.post('/api/sides', async (req, res) => {
     const db = client.db('sunday_sides_db');
     const collection = db.collection('sides_collection');
 
+    console.log(newSide, { _id: crypto.randomUUID(), ...newSide });
     await collection.insertOne({ _id: crypto.randomUUID(), ...newSide });
 
     res.status(201).json(newSide);
