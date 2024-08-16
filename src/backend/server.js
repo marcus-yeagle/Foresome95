@@ -23,7 +23,7 @@ server.get('/api/sides', async (req, res) => {
 
     const elems = await collection.find().toArray();
     console.log(elems);
-    res.status(200).json(elems);
+    res.status(200).json(sides);
     client.close();
   } catch (error) {
     console.error('Error: ', error);
