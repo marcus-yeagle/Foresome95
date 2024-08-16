@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "start": "node src/backend/server.js",
     "build": "tsc && vite build",
     "server": "node src/backend/server.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
