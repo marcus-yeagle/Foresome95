@@ -28,7 +28,7 @@ server.post('/api/sides', async (req, res) => {
   const connectonString =
     'mongodb://iad2-c18-2.mongo.objectrocket.com:52167,iad2-c18-0.mongo.objectrocket.com:52167,iad2-c18-1.mongo.objectrocket.com:52167/?replicaSet=9e1499aa02764da499369088784b7d13&ssl=true';
 
-  MongoClient.connect(connectionString, function (err, db) {
+  MongoClient.connect(connectonString, function (err, db) {
     if (db) {
       db.close();
     }
