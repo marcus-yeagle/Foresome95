@@ -15,29 +15,21 @@ const connectonString =
 server.use(cors());
 server.use(express.static(path.join(__dirname, '../../build')));
 
-server.get('/api/sides', (req, res) => {
+server.get('/api/sides', async (req, res) => {
   try {
-    MongoClient.connect(connectonString, function (err, db) {
-      if (db) {
-        db.close();
-      }
-      console.log('foo');
-      if (err) {
-        console.log('Error: ', err);
-      } else {
-        console.log('Connected!');
-        const collection = db.collection('sides_collection');
-        const cursor = collection.find();
-        const elems = [];
-        cursor.forEach((element) => {
-          elems.push(element);
-        });
-        res.status(201).json(elems);
-        res.send(elems);
-      }
+    const client = await MongoClient.connect(connectionString, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
+    const db = client.db('sunday_sides_db');
+    const collection = db.collection('sides_collection');
+
+    const elems = await collection.find().toArray();
+
+    res.status(200).json(elems);
+    client.close();
   } catch (error) {
-    console.error(error);
+    console.error('Error: ', error);
     res.status(500).json({ message: 'An error occurred' });
   }
 });
@@ -45,30 +37,23 @@ server.get('/api/sides', (req, res) => {
 server.post('/api/sides', async (req, res) => {
   console.log('POST /api/sides');
   const newSide = req.body;
-  const connectonString =
-    'mongodb://iad2-c18-2.mongo.objectrocket.com:52167,iad2-c18-0.mongo.objectrocket.com:52167,iad2-c18-1.mongo.objectrocket.com:52167/?replicaSet=9e1499aa02764da499369088784b7d13&ssl=true';
 
-  MongoClient.connect(connectonString, function (err, db) {
-    if (db) {
-      db.close();
-    }
-    console.log('foo');
-    if (err) {
-      console.log('Error: ', err);
-    } else {
-      console.log('Connected!');
-      const collection = db.collection('sides_collection');
-      collection.insert(newSide, { w: 1 }, function (err, result) {
-        if (err) {
-          console.log('Error: ', err);
-          res.status(500).json({ message: 'An error occurred saving Side' });
-        } else {
-          console.log('Added new Side', result);
-          res.status(201).json([...sides, newSide]);
-        }
-      });
-    }
-  });
+  try {
+    const client = await MongoClient.connect(connectionString, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    const db = client.db('your_database_name_here');
+    const collection = db.collection('sides_collection');
+
+    await collection.insertOne(newSide);
+
+    res.status(201).json(newSide);
+    client.close();
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
 });
 
 server.listen(PORT, () => {
