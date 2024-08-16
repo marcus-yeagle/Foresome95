@@ -22,7 +22,7 @@ server.get('/api/sides', async (req, res) => {
     const collection = db.collection('sides_collection');
 
     const elems = await collection.find().toArray();
-
+    console.log(elems);
     res.status(200).json(elems);
     client.close();
   } catch (error) {
