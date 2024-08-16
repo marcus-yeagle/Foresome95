@@ -11,14 +11,14 @@ server.use(cors());
 
 server.use(express.static(path.join(__dirname, './../build')));
 
-server.get('/', (req, res) => {
-  try {
-    res.send('Hello World');
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'An error occurred' });
-  }
-});
+// server.get('/', (req, res) => {
+//   try {
+//     res.send('Hello World');
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'An error occurred' });
+//   }
+// });
 
 server.get('/api/sides', (req, res) => {
   try {
