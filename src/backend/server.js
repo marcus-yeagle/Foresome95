@@ -24,6 +24,7 @@ server.get('/api/sides', (req, res) => {
 });
 
 server.post('/api/sides', async (req, res) => {
+  console.log('POST /api/sides');
   const newSide = req.body;
   const connectonString =
     'mongodb://iad2-c18-2.mongo.objectrocket.com:52167,iad2-c18-0.mongo.objectrocket.com:52167,iad2-c18-1.mongo.objectrocket.com:52167/?replicaSet=9e1499aa02764da499369088784b7d13&ssl=true';
@@ -32,6 +33,7 @@ server.post('/api/sides', async (req, res) => {
     if (db) {
       db.close();
     }
+    console.log('foo');
     if (err) {
       console.log('Error: ', err);
     } else {
