@@ -14,6 +14,25 @@ server.use(express.static(path.join(__dirname, '../../build')));
 
 server.get('/api/sides', (req, res) => {
   try {
+    MongoClient.connect(connectonString, function (err, db) {
+      if (db) {
+        db.close();
+      }
+      console.log('foo');
+      if (err) {
+        console.log('Error: ', err);
+      } else {
+        console.log('Connected!');
+        const collection = db.collection('sides_collection');
+        const cursor = collection.find();
+        const elems = [];
+        cursor.forEach((element) => {
+          elems.push(element);
+        });
+        res.status(201).json(elems);
+      }
+    });
+
     setTimeout(() => {
       res.send(sides);
     }, 1500);
