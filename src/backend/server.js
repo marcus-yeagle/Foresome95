@@ -17,10 +17,7 @@ server.use(express.static(path.join(__dirname, '../../build')));
 
 server.get('/api/sides', async (req, res) => {
   try {
-    const client = await MongoClient.connect(connectionString, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const client = await MongoClient.connect(connectionString, undefined);
     const db = client.db('sunday_sides_db');
     const collection = db.collection('sides_collection');
 
@@ -39,10 +36,7 @@ server.post('/api/sides', async (req, res) => {
   const newSide = req.body;
 
   try {
-    const client = await MongoClient.connect(connectionString, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const client = await MongoClient.connect(connectionString, undefined);
     const db = client.db('your_database_name_here');
     const collection = db.collection('sides_collection');
 
