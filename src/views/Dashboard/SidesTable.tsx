@@ -16,14 +16,14 @@ import BetDetailModal from '../../components/BetDetailModal/BetDetailModal';
 // TODO: proper typing for router search params
 type OrderBy = 'price' | 'change' | 'name';
 
-const SidesTable = (data: any[]) => {
+const SidesTable = (data: any) => {
   const [isOpened, setIsOpened] = useState(false);
   const [betDetail, setBetDetail] = useState(undefined);
 
   console.log(data);
 
   const handleChangeOrder = (orderBy: OrderBy) => {
-    const currentSearchParams = new URLSearchParams(history.location.search);
+    const currentSearchParams = new URLSearchParams();
     const currentOrderBy = currentSearchParams.get('orderBy') as OrderBy;
     let desc;
 
@@ -33,12 +33,12 @@ const SidesTable = (data: any[]) => {
       desc = orderBy === 'name' ? false : true;
     }
 
-    const location = {
-      pathname: history.location.pathname,
-      search: `?orderBy=${orderBy}&desc=${desc}`,
-      hash: history.location.hash,
-    };
-    history.push(location);
+    // const location = {
+    //   pathname: history.location.pathname,
+    //   search: `?orderBy=${orderBy}&desc=${desc}`,
+    //   hash: history.location.hash,
+    // };
+    // history.push(location);
   };
 
   const searchParams = new URLSearchParams(location.search);

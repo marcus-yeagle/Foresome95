@@ -7,7 +7,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { setUserHoldings, deleteUserHoldings } from '../../store/actions/user';
 import { formatCurrency } from '../../utils';
 
-import API, { FormattedCoinData } from '../../API/SidesService';
+// import API, { FormattedCoinData } from '../../API/SidesService';
 
 import { Toolbar, Button, Window, WindowContent, TextField } from 'react95';
 
@@ -30,13 +30,14 @@ const Layout = ({
   setUserHoldings,
   deleteUserHoldings,
 }: Props) => {
-  const [data, setData] = useState<FormattedCoinData | null>(null);
+  const [data, setData] = useState<any | null>(null);
   const [amount, setAmount] = useState((holdings || 0).toString());
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     async function fetchData() {
-      const data = await API.fetchCoinsData([coin], currency);
+      // const data = await API.fetchCoinsData([coin], currency);
+      const data = null;
       const coinData = data[coin];
       setData(coinData);
     }

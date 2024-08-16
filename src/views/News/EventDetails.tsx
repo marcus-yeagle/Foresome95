@@ -8,22 +8,20 @@ import WindowHeader from '../../components/WindowHeader/WindowHeader';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
 import EventExplorerIcon from '../../assets/img/eventExplorer.png';
 import CloseIcon from '../../components/CloseIcon/CloseIcon';
-import { CoinGecko } from '../../API/SidesService';
+// import { CoinGecko } from '../../API/SidesService';
 
 const EventDetails = ({
   events: eventsProp,
   openedEventIndex,
   setOpenedEvent,
 }: {
-  events: (CoinGecko.Event & {
-    seen: boolean;
-  })[];
+  events: [];
   openedEventIndex: number;
   setOpenedEvent: (id: number | null) => void;
 }) => {
   useLockBodyScroll();
   const events = eventsProp.map((e, index) => ({
-    label: e.title,
+    // label: e.title,
     value: index,
   }));
   const {

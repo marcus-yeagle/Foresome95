@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import styled, { css } from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import styled, { css } from 'styled-components';
 
-import { fetchEvents, setEventSeen } from "../../store/actions/events";
+import { fetchEvents, setEventSeen } from '../../store/actions/events';
 
-import { createMaterialStyles } from "../../utils";
+import { createMaterialStyles } from '../../utils';
 
-import EventDetails from "./EventDetails";
+import EventDetails from './EventDetails';
 
-import Well from "../../components/Well/Well";
-import WellContainer from "../../components/WellContainer/WellContainer";
+import Well from '../../components/Well/Well';
+import WellContainer from '../../components/WellContainer/WellContainer';
 
-import { Bar } from "react95";
-import { AppDispatch, AppState } from "../../store";
+import { Bar } from 'react95';
+import { AppDispatch, AppState } from '../../store';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -67,10 +67,10 @@ const Events = ({ events, fetchEvents, setEventSeen }: PropsFromRedux) => {
             {events
               ? events.length
                 ? `Next event: ${events[0].title}`
-                : "No upcoming events."
-              : "Loading events..."}{" "}
+                : 'No upcoming events.'
+              : 'Loading events...'}{' '}
           </Well>
-          <Well>{events ? `${events.length} event(s)` : ""} </Well>
+          <Well>{events ? `${events.length} event(s)` : ''} </Well>
         </WellContainer>
       </FeedFooter>
       {openedEventIndex !== null && events && (
@@ -85,7 +85,7 @@ const Events = ({ events, fetchEvents, setEventSeen }: PropsFromRedux) => {
 };
 
 const mapStateToProps = (state: AppState) => {
-  const events = state.events;
+  const events = undefined;
   const seenEvents = state.user.seenEvents;
   return {
     events: events
@@ -118,7 +118,7 @@ let EventSlider = styled.div`
   }
 `;
 let EventListWrapper = styled.div`
-  ${createMaterialStyles("top")}
+  ${createMaterialStyles('top')}
 
   box-sizing: border-box;
   display: inline-flex;
@@ -159,7 +159,7 @@ let EventImageWrapper = styled.div<{ seen: boolean }>`
   overflow: hidden;
   &:after {
     box-sizing: border-box;
-    content: "";
+    content: '';
     display: inline-block;
     position: absolute;
     top: 0;
@@ -208,7 +208,7 @@ let EventTitle = styled.span`
   text-overflow: ellipsis;
 `;
 let FeedFooter = styled.footer`
-  ${createMaterialStyles("top")}
+  ${createMaterialStyles('top')}
 
   padding: 0.5rem;
   border-top-color: ${({ theme }) => theme.borderLight};

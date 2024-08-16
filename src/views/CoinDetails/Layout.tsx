@@ -15,7 +15,7 @@ import CloseIcon from '../../components/CloseIcon/CloseIcon';
 import LinkButton from '../../components/LinkButton/LinkButton';
 
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
-import { CryptoCompare } from '../../API/SidesService';
+// import { CryptoCompare } from '../../API/SidesService';
 
 export type Timespan = '24H' | '1H' | '1M' | '3M' | '1Y';
 
@@ -30,11 +30,7 @@ type Props = {
     totalCoinsMined: number;
     sortOrder: number;
   } | null;
-  data:
-    | (CryptoCompare.DisplayCoinData & {
-        imageURL: string;
-      })
-    | null;
+  data: null;
 
   historicalData:
     | {
@@ -72,9 +68,9 @@ const Layout = ({
     coinName = info.coinName;
     symbol = info.symbol;
     sortOrder = info.sortOrder;
-    HIGH24HOUR = data.HIGH24HOUR;
-    LOW24HOUR = data.LOW24HOUR;
-    MKTCAP = data.MKTCAP;
+    // HIGH24HOUR = data.HIGH24HOUR;
+    // LOW24HOUR = data.LOW24HOUR;
+    // MKTCAP = data.MKTCAP;
     imageURL = info.imageURL;
   }
   return (

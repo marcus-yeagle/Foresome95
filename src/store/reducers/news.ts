@@ -1,5 +1,5 @@
-import { FETCH_NEWS_SUCCESS } from "../actions/actionConstants";
-import { ActionTypes } from "../actions/actionTypes";
+import { FETCH_NEWS_SUCCESS } from '../actions/actionConstants';
+import { ActionTypes } from '../actions/actionTypes';
 
 export type NewsItem = {
   body: string;
@@ -30,25 +30,25 @@ const initialState: NewsState = null;
 
 const newsReducer = (state: NewsState = initialState, action: ActionTypes) => {
   switch (action.type) {
-    case FETCH_NEWS_SUCCESS:
-      let news;
-      const newNews = action.payload.news;
-      if (action.payload.extend) {
-        let uniqueIDs: NewsItem["id"][] = [];
+    // case FETCH_NEWS_SUCCESS:
+    //   let news;
+    //   const newNews = action.payload.news;
+    //   if (action.payload.extend) {
+    //     let uniqueIDs: NewsItem["id"][] = [];
 
-        news = [...(state || []), ...newNews];
-        news = news.filter((n) => {
-          if (!uniqueIDs.includes(n.id)) {
-            uniqueIDs.push(n.id);
-            return true;
-          } else {
-            return false;
-          }
-        });
-      } else {
-        news = newNews;
-      }
-      return news;
+    //     news = [...(state || []), ...newNews];
+    //     news = news.filter((n) => {
+    //       if (!uniqueIDs.includes(n.id)) {
+    //         uniqueIDs.push(n.id);
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
+    //     });
+    //   } else {
+    //     news = newNews;
+    //   }
+    //   return news;
     default:
       return state;
   }

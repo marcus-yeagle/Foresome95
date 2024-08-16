@@ -1,27 +1,27 @@
-import React, { useLayoutEffect, useRef } from "react";
-import styled from "styled-components";
+import React, { useLayoutEffect, useRef } from 'react';
+import styled from 'styled-components';
 
-import { connect, ConnectedProps } from "react-redux";
-import { fetchNews } from "../../store/actions/news";
+import { connect, ConnectedProps } from 'react-redux';
+// import { fetchNews } from "../../store/actions/news";
 
-import { timeSince, createMaterialStyles, copyToClipboard } from "../../utils";
+import { timeSince, createMaterialStyles, copyToClipboard } from '../../utils';
 
-import { Divider, Button, Hourglass } from "react95";
+import { Divider, Button, Hourglass } from 'react95';
 
-import Dropdown from "../../components/Dropdown/Dropdown";
-import MenuIcon from "../../components/MenuIcon/MenuIcon";
-import { AppDispatch, AppState } from "../../store";
+import Dropdown from '../../components/Dropdown/Dropdown';
+import MenuIcon from '../../components/MenuIcon/MenuIcon';
+import { AppDispatch, AppState } from '../../store';
 
-type NewType = ConnectedProps<typeof connector>;
+// type NewType = ConnectedProps<typeof connector>;
 
-type PropsFromRedux = NewType;
+// type PropsFromRedux = NewType;
 
-const NewsList = ({ news, fetchNews }: PropsFromRedux) => {
+const NewsList = ({ news, fetchNews }: any) => {
   useLayoutEffect(() => {
-    const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
+    const lazyImages = Array.from(document.querySelectorAll('[data-src]'));
     const options = {
       root: null,
-      rootMargin: "400px 0px 1600px 0px",
+      rootMargin: '400px 0px 1600px 0px',
       threshold: 0,
     };
     const callback: IntersectionObserverCallback = function (
@@ -33,7 +33,7 @@ const NewsList = ({ news, fetchNews }: PropsFromRedux) => {
           let lazyImage = entry.target as HTMLImageElement;
 
           lazyImage.src = lazyImage.dataset.src as string;
-          lazyImage.removeAttribute("data-src");
+          lazyImage.removeAttribute('data-src');
           observer.unobserve(lazyImage);
         }
       });
@@ -60,7 +60,7 @@ const NewsList = ({ news, fetchNews }: PropsFromRedux) => {
   const newsItems = news.map((n) => {
     const date = timeSince(n.published_on);
     const hashtags = n.categories
-      .split("|")
+      .split('|')
       .map((h, i) => <Hashtag key={i}>{` #${h.toLowerCase()} `}</Hashtag>);
     return (
       <Li key={n.id}>
@@ -109,17 +109,17 @@ const NewsList = ({ news, fetchNews }: PropsFromRedux) => {
     </Ul>
   );
 };
-const mapStateToProps = (state: AppState) => ({
-  news: state.news,
-});
+// const mapStateToProps = (state: AppState) => ({
+//   news: state.news,
+// });
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  fetchNews: (timestamp?: number) => dispatch(fetchNews(timestamp)),
-});
+// const mapDispatchToProps = (dispatch: AppDispatch) => ({
+//   fetchNews: (timestamp?: number) => dispatch(fetchNews(timestamp)),
+// });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+// const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(NewsList);
+export default NewsList;
 
 const LastItem = ({ onVisible }: { onVisible: () => void }) => {
   const loader = useRef(null);
@@ -127,7 +127,7 @@ const LastItem = ({ onVisible }: { onVisible: () => void }) => {
     if (!loader.current) return;
     var options = {
       root: null,
-      rootMargin: "400px 0px 3200px 0px",
+      rootMargin: '400px 0px 3200px 0px',
       threshold: 0,
     };
     var callback: IntersectionObserverCallback = function (entries, observer) {
@@ -153,7 +153,7 @@ const LastItem = ({ onVisible }: { onVisible: () => void }) => {
             <div>
               <Row>
                 {/* <SourceIMG data-src={""} style={{ background: "teal" }} /> */}
-                <Hourglass style={{ marginRight: "0.5rem" }} />
+                <Hourglass style={{ marginRight: '0.5rem' }} />
                 <SourceInfo>
                   <SourceName>Placeholder</SourceName>
                   <Time>loading...</Time>
@@ -182,7 +182,7 @@ let ArticleMenu = ({ url, text }: { url?: string; text?: string }) => (
     trigger={({ ...props }) => (
       <Button
         disabled={url === null}
-        style={{ fontWeight: "bold" }}
+        style={{ fontWeight: 'bold' }}
         {...props}
         square
       >
@@ -193,7 +193,7 @@ let ArticleMenu = ({ url, text }: { url?: string; text?: string }) => (
       ...(navigator.share
         ? [
             {
-              label: "Share",
+              label: 'Share',
               onClick: () => {
                 navigator
                   .share({
@@ -201,14 +201,14 @@ let ArticleMenu = ({ url, text }: { url?: string; text?: string }) => (
                     text,
                     title: document.title,
                   })
-                  .then(() => console.log("Successful share"))
-                  .catch((error) => console.log("Error sharing", error));
+                  .then(() => console.log('Successful share'))
+                  .catch((error) => console.log('Error sharing', error));
               },
             },
           ]
         : []),
       {
-        label: "Copy link",
+        label: 'Copy link',
         onClick: () => {
           url && copyToClipboard(url);
         },
@@ -280,12 +280,12 @@ let SourceIMG = styled.img`
 `;
 
 let ArticleSource = styled.header`
-  ${createMaterialStyles("bottom")}
+  ${createMaterialStyles('bottom')}
   line-height: 1;
   padding: 0.5rem;
 `;
 let ArticleHeader = styled.header`
-  ${createMaterialStyles("top")}
+  ${createMaterialStyles('top')}
 
   padding: 0.5rem 0.5rem 1rem;
 `;
@@ -294,7 +294,7 @@ let Square = styled.div`
   position: relative;
   background: ${({ theme }) => theme.material};
   &:before {
-    content: "";
+    content: '';
     left: 0;
     top: 0;
     display: block;

@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
-import API, { CryptoCompare } from '../../API/SidesService';
 import { AppDispatch, AppState } from '../../store';
-import { fetchCoinsInfo } from '../../store/actions/coins';
 import { setFollowedCoin } from '../../store/actions/user';
 import Layout, { Timespan } from './Layout';
 
@@ -18,11 +16,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 const Swag = (props: Props) => {
   const isMounted = React.useRef(true);
   const [{ data, historicalData, timeSpan }, setState] = React.useState<{
-    data:
-      | (CryptoCompare.DisplayCoinData & {
-          imageURL: string;
-        })
-      | null;
+    data: null;
     historicalData:
       | {
           HLCAverage: number;
@@ -44,58 +38,58 @@ const Swag = (props: Props) => {
 
   const { following, coin, currency, info, setFollowedCoin, inWallet } = props;
 
-  const handleFetchCoinsData = React.useCallback(async () => {
-    let resp = await API.fetchCoinsDisplayData([coin], currency);
-    const data = resp[coin];
-    if (isMounted.current) setState((state) => ({ ...state, data }));
-  }, [coin, currency]);
+  // const handleFetchCoinsData = React.useCallback(async () => {
+  //   let resp = await API.fetchCoinsDisplayData([coin], currency);
+  //   const data = resp[coin];
+  //   if (isMounted.current) setState((state) => ({ ...state, data }));
+  // }, [coin, currency]);
 
-  const handleFetchHistoricalData = React.useCallback(
-    async (newTimeSpan: Timespan) => {
-      try {
-        const data = await API.fetchCoinsHistoricalData(
-          coin,
-          newTimeSpan,
-          currency
-        );
-        const historicalData = data.map((dataPoint) => ({
-          ...dataPoint,
-          HLCAverage: HLCAverage(
-            dataPoint.high,
-            dataPoint.low,
-            dataPoint.close
-          ),
-        }));
+  // const handleFetchHistoricalData = React.useCallback(
+  //   async (newTimeSpan: Timespan) => {
+  //     try {
+  //       const data = await API.fetchCoinsHistoricalData(
+  //         coin,
+  //         newTimeSpan,
+  //         currency
+  //       );
+  //       const historicalData = data.map((dataPoint) => ({
+  //         ...dataPoint,
+  //         HLCAverage: HLCAverage(
+  //           dataPoint.high,
+  //           dataPoint.low,
+  //           dataPoint.close
+  //         ),
+  //       }));
 
-        if (isMounted.current)
-          setState((state) => ({
-            ...state,
-            historicalData,
-            timeSpan: newTimeSpan,
-          }));
-      } catch (error) {
-        console.log('Error in CoinDetails handleFetchHistoricalData ');
-        if (isMounted.current)
-          setState((state) => ({
-            ...state,
-            timeSpan: timeSpan,
-          }));
-      }
-    },
-    [coin, currency, timeSpan]
-  );
+  //       if (isMounted.current)
+  //         setState((state) => ({
+  //           ...state,
+  //           historicalData,
+  //           timeSpan: newTimeSpan,
+  //         }));
+  //     } catch (error) {
+  //       console.log('Error in CoinDetails handleFetchHistoricalData ');
+  //       if (isMounted.current)
+  //         setState((state) => ({
+  //           ...state,
+  //           timeSpan: timeSpan,
+  //         }));
+  //     }
+  //   },
+  //   [coin, currency, timeSpan]
+  // );
 
-  React.useEffect(() => {
-    async function update() {
-      if (!info) {
-        await fetchCoinsInfo();
-      }
+  // React.useEffect(() => {
+  //   async function update() {
+  //     if (!info) {
+  //       // await fetchCoinsInfo();
+  //     }
 
-      handleFetchCoinsData();
-      handleFetchHistoricalData(timeSpan);
-    }
-    update();
-  }, [handleFetchCoinsData, handleFetchHistoricalData, info, timeSpan]);
+  //     handleFetchCoinsData();
+  //     handleFetchHistoricalData(timeSpan);
+  //   }
+  //   update();
+  // }, [handleFetchCoinsData, handleFetchHistoricalData, info, timeSpan]);
 
   return (
     <Layout
@@ -105,7 +99,8 @@ const Swag = (props: Props) => {
       following={following}
       inWallet={inWallet}
       timeSpan={timeSpan}
-      onTimeSpanChange={handleFetchHistoricalData}
+      // onTimeSpanChange={handleFetchHistoricalData}
+      onTimeSpanChange={undefined}
       onFollow={() => info && setFollowedCoin(info.symbol, !following)}
     />
   );
@@ -115,7 +110,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
   const coin = ownProps.match.params.coin;
   const following = state.user.followed.includes(coin);
   const inWallet = state.user.wallet[coin] ? true : false;
-  const info = state.coins.info ? state.coins.info[coin] : null;
+  const info = null;
   const currency = state.user.currency;
   return {
     coin,
@@ -127,7 +122,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
+  // fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
   setFollowedCoin: (coin: string, follow: boolean) =>
     dispatch(setFollowedCoin(coin, follow)),
 });

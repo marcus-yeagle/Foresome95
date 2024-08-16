@@ -1,8 +1,8 @@
 import {
   FETCH_COINS_INFO_SUCCESS,
   FETCH_COINS_DATA_SUCCESS,
-} from "../actions/actionConstants";
-import { ActionTypes } from "../actions/actionTypes";
+} from '../actions/actionConstants';
+import { ActionTypes } from '../actions/actionTypes';
 
 export type CoinsList = string[];
 
@@ -82,11 +82,11 @@ const initialState: CoinsState = {
 
 const coinsReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
-    case FETCH_COINS_INFO_SUCCESS:
-      const { top, info } = action.payload;
-      return { ...state, top, info };
-    case FETCH_COINS_DATA_SUCCESS:
-      return { ...state, coinsData: action.payload };
+    // case FETCH_COINS_INFO_SUCCESS:
+    //   const { top, info } = action.payload;
+    //   return { ...state, top, info };
+    // case FETCH_COINS_DATA_SUCCESS:
+    //   return { ...state, coinsData: action.payload };
     default:
       return state;
   }
