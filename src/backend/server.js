@@ -38,13 +38,18 @@ server.post('/api/sides', async (req, res) => {
       console.log('Error: ', err);
     } else {
       console.log('Connected!');
-      process.exit();
+      const collection = db.collection('sides_collection');
+      collection.insert(newSide, { w: 1 }, function (err, result) {
+        if (err) {
+          console.log('Error: ', err);
+          res.status(500).json({ message: 'An error occurred saving Side' });
+        } else {
+          console.log('Added new Side', result);
+          res.status(201).json([...sides, newSide]);
+        }
+      });
     }
   });
-
-  // console.log(newSide, [...sides, newSide]);
-
-  res.status(201).json([...sides, newSide]);
 });
 
 server.listen(PORT, () => {
