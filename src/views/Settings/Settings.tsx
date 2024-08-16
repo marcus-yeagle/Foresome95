@@ -39,6 +39,7 @@ import {
 import BackgroundColorPicker from './BackgroundColorPicker';
 // import SidesData from '../../store/sides051124.json';
 import PlayerSearch from '../PlayerSearch/PlayerSearch';
+import { postSide } from '../../API/SidesService';
 
 // {
 //   "id": 6,
@@ -307,7 +308,28 @@ const Settings = ({
                 />
               </div>
               <div style={{ marginTop: '0.75rem' }}>
-                <Button disabled={!newBetType} fullWidth>
+                <Button
+                  disabled={!newBetType}
+                  fullWidth
+                  onClick={() => {
+                    postSide({
+                      id: crypto.randomUUID(),
+                      date: '2024-11-17',
+                      betType: newBetType,
+                      players: [
+                        {
+                          name: 'Westerheide, Pete',
+                          indx: 9,
+                          tee: 'blue',
+                        },
+                      ],
+                      // score: null,
+                      // action: 150,
+                      // sides: null,
+                      // prop: '',
+                    });
+                  }}
+                >
                   Add Bet
                 </Button>
               </div>
