@@ -22,7 +22,7 @@ server.get('/api/sides', (req, res) => {
   }
 });
 
-server.post('/api/sides', (req, res) => {
+server.post('/api/sides', async (req, res) => {
   const newSide = req.body;
   const timestamp = new Date().toISOString();
   const filePath = path.join(__dirname, `sides_${timestamp}.json`);
@@ -30,7 +30,7 @@ server.post('/api/sides', (req, res) => {
   console.log('filePath:', filePath);
   console.log(newSide, [...sides, newSide]);
 
-  fs.writeFile(
+  await fs.writeFile(
     filePath,
     JSON.stringify([...sides, newSide], null, 2),
     (err) => {
