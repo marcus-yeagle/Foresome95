@@ -25,42 +25,24 @@ server.get('/api/sides', (req, res) => {
 
 server.post('/api/sides', async (req, res) => {
   const newSide = req.body;
+  const connectonString =
+    'mongodb://iad2-c18-2.mongo.objectrocket.com:52167,iad2-c18-0.mongo.objectrocket.com:52167,iad2-c18-1.mongo.objectrocket.com:52167/?replicaSet=9e1499aa02764da499369088784b7d13&ssl=true';
 
-  MongoClient.connect(
-    'mongodb://iad2-c18-2.mongo.objectrocket.com:52167,iad2-c18-0.mongo.objectrocket.com:52167,iad2-c18-1.mongo.objectrocket.com:52167/?replicaSet=9e1499aa02764da499369088784b7d13&ssl=true',
-    function (err, db) {
-      if (err) {
-        return console.error(err);
-      }
-
-      var collection = db.collection('side_collection');
-      collection.insert(newSide, { w: 1 }, function (err, result) {
-        if (err) {
-          return console.error(err);
-        } else {
-          console.log('Inserted a new side!', newSide);
-          process.exit();
-        }
-      });
-
-      // collection.findOne({ winner: 'Javi' }, function (err, doc) {
-      //   if (err) {
-      //     return console.error(err);
-      //   } else {
-      //     console.log(doc);
-      //     process.exit();
-      //   }
-      // });
+  MongoClient.connect(connectionString, function (err, db) {
+    if (db) {
+      db.close();
     }
-  );
+    if (err) {
+      console.log('Error: ', err);
+    } else {
+      console.log('Connected!');
+      process.exit();
+    }
+  });
 
-  const timestamp = new Date().toISOString();
-  const filePath = path.join(__dirname, `sides_${timestamp}.json`);
+  // console.log(newSide, [...sides, newSide]);
 
-  console.log('filePath:', filePath);
-  console.log(newSide, [...sides, newSide]);
-
-  res.status(201).json(newSide);
+  res.status(201).json([...sides, newSide]);
 });
 
 server.listen(PORT, () => {
