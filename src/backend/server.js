@@ -4,8 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
 
-const startDatabase = require('./src/db');
-
 const server = express();
 const PORT = process.env.PORT || 4000;
 
@@ -67,5 +65,4 @@ server.post('/api/sides', async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  startDatabase();
 });
