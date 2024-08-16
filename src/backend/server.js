@@ -15,6 +15,7 @@ server.use(cors());
 server.use(express.static(path.join(__dirname, '../../build')));
 
 server.get('/api/sides', async (req, res) => {
+  console.log('GET /api/sides');
   try {
     const client = await MongoClient.connect(connectionString, undefined);
     const db = client.db('sunday_sides_db');
@@ -33,13 +34,12 @@ server.get('/api/sides', async (req, res) => {
 server.post('/api/sides', async (req, res) => {
   console.log('POST /api/sides');
   const newSide = req.body;
-
   try {
     const client = await MongoClient.connect(connectionString, undefined);
     const db = client.db('sunday_sides_db');
     const collection = db.collection('sides_collection');
 
-    await collection.insertOne(newSide);
+    await collection.insertOne({ _id: crypto.randomUUID(), ...newSide });
 
     res.status(201).json(newSide);
     client.close();
