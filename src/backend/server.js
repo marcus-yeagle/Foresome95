@@ -1,11 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const server = express();
-const port = 3000;
+const PORT = process.env.PORT || 4000;
 
 const sides = require('./sides051124.json');
 
 server.use(cors());
+
+server.get('/', (req, res) => {
+  try {
+    res.send('Hello World');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
 
 server.get('/api/sides', (req, res) => {
   try {
@@ -24,6 +33,6 @@ server.post('/api/sides', (req, res) => {
   res.status(201).json(newSide);
 });
 
-server.listen(port, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${port}`);
 });
