@@ -31,6 +31,9 @@ import SearchIcon from '../../assets/img/system-search.png';
 import PlayerSearch from '../PlayerSearch/PlayerSearch';
 import AddBet from '../AddBet/AddBet';
 import CloseIcon from '../../components/CloseIcon/CloseIcon';
+import { useSelector } from 'react-redux';
+import { s } from 'vite/dist/node/types.d-aGj9QkWt';
+import { set } from 'mongoose';
 
 // TODO: cleanup
 type WalletCoinData = {
@@ -54,21 +57,8 @@ const Wallet = ({
   match,
   location,
 }: Props) => {
-  const handleSortEnd = ({
-    oldIndex,
-    newIndex,
-  }: {
-    oldIndex: number;
-    newIndex: number;
-  }) => {
-    if (!data) return;
-    const coinsList = arrayMove(
-      data.map((coinData) => coinData.symbol),
-      oldIndex,
-      newIndex
-    );
-    sortUserHoldings(coinsList);
-  };
+  const sides = useSelector((state: any) => state.sides);
+
   const balance = data
     ? Math.round(
         data
@@ -89,6 +79,19 @@ const Wallet = ({
 
   function onPlayerSelect(p: string) {
     setSelectedPlayer(p);
+    console.log(p);
+    sides.data.forEach((s) => {
+      console.log(s);
+      if (s.bettors.map((b) => b.name).includes(p)) {
+        console.log(
+          s.bettors
+            .filter((b) => b.name)
+            .map((b) => b.wager)
+            .reduce((a, b) => a + b)
+        );
+        setAtRiskValue(s.bettors.filter((b) => b.name).map((b) => b.wager)[0]);
+      }
+    });
   }
 
   function onPlayerClear() {

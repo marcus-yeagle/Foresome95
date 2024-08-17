@@ -73,8 +73,8 @@ export async function updateSide(id: string, newSide: Side): Promise<void> {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to update side');
     alert('Error!! No Bet placed');
+    throw new Error('Failed to update side');
   }
 
   const data = await response.json();
