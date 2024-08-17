@@ -267,7 +267,7 @@ const AddBet = ({ player, onClose }) => {
             const newSide = {
               ...selectedSideType,
               bettors: [
-                ...selectedSide.bettors,
+                ...selectedSideType.bettors,
                 {
                   name: player,
                   side: selectedSide,
