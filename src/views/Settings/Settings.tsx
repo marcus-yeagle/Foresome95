@@ -358,6 +358,7 @@ const Settings = ({
                       score: score,
                       // action: 150,
                       bettors: [],
+                      outcome: 'pending',
                       sides: [
                         {
                           side:

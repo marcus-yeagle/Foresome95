@@ -132,7 +132,9 @@ const AddBet = ({ player, onClose }) => {
                     padding: '0.75rem',
                     minWidth: '100px',
                     outline: `${
-                      !yesSideBtnDisabled ? '3px solid #008000' : 'none'
+                      selectedSide === selectedSideType?.sides[0]
+                        ? '3px solid #008000'
+                        : 'none'
                     }`,
                   }}
                   size="lg"
@@ -151,7 +153,9 @@ const AddBet = ({ player, onClose }) => {
                     padding: '0.75rem',
                     minWidth: '100px',
                     outline: `${
-                      yesSideBtnDisabled ? '3px solid #F00' : 'none'
+                      selectedSide === selectedSideType?.sides[1]
+                        ? '3px solid #F00'
+                        : 'none'
                     }`,
                   }}
                   size="lg"
@@ -249,6 +253,7 @@ const AddBet = ({ player, onClose }) => {
           </div>
         </div>
         <Button
+          disabled={!selectedSide || !selectedSideType}
           style={{ marginTop: '1.25rem' }}
           size="lg"
           primary

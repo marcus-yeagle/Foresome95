@@ -21,6 +21,7 @@ interface Side {
   prop?: string;
   score?: number;
   sides: any[];
+  outcome: string;
 }
 
 interface SidesResponse {
