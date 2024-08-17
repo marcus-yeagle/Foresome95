@@ -79,16 +79,8 @@ const Wallet = ({
 
   function onPlayerSelect(p: string) {
     setSelectedPlayer(p);
-    console.log(p);
     sides.data.forEach((s) => {
-      console.log(s);
       if (s.bettors.map((b) => b.name).includes(p)) {
-        console.log(
-          s.bettors
-            .filter((b) => b.name)
-            .map((b) => b.wager)
-            .reduce((a, b) => a + b)
-        );
         setAtRiskValue(s.bettors.filter((b) => b.name).map((b) => b.wager)[0]);
       }
     });
@@ -96,6 +88,7 @@ const Wallet = ({
 
   function onPlayerClear() {
     setSelectedPlayer('');
+    setAtRiskValue(0);
   }
 
   return (
