@@ -364,7 +364,7 @@ const Settings = ({
                         {
                           side:
                             newBetType !== 'Matchup'
-                              ? 'Over/Yes'
+                              ? 'Under/No'
                               : selectedPlayers[1],
                           action: noAction,
                         },
