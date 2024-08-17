@@ -37,15 +37,22 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                 <br />
                 {detailData.betType === 'Group Net Winner' ? (
                   <div>
-                    <Button
-                      key={'group-btn-id'}
-                      primary={true}
-                      disabled
-                      variant="flat"
-                      style={{ marginRight: '0.5rem' }}
-                    >
-                      Total Bets: {detailData?.bettors.length}
-                    </Button>
+                    {detailData.sides.map((s: any, i: number) => (
+                      <Button
+                        key={i}
+                        primary={s.action < 0}
+                        disabled
+                        variant="flat"
+                        style={{ marginRight: '0.5rem' }}
+                      >
+                        {
+                          s?.bettors?.filter((b) => b.side.side === s.side)
+                            .length
+                        }
+                        &nbsp;&nbsp;
+                        {s.side}
+                      </Button>
+                    ))}
                     <br />
                     <br />
                     <GroupBox variant="flat" label={'Group'}>
