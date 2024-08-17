@@ -351,7 +351,7 @@ const Settings = ({
                   fullWidth
                   onClick={() => {
                     postSide({
-                      id: crypto.randomUUID(),
+                      // id: crypto.randomUUID(),
                       date: new Date().toISOString().split('T')[0],
                       betType: newBetType,
                       players: selectedPlayers,

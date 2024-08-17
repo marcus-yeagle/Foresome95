@@ -73,6 +73,40 @@ server.get('/api/sides/clear', async (req, res) => {
   }
 });
 
+server.put('/api/sides/:id', async (req, res) => {
+  console.log('PUT /api/sides/:id', req.body);
+  const sideId = req.params.id;
+  const updatedSide = req.body;
+
+  if (!updatedSide) {
+    return res.status(400).json({ message: 'Invalid request body' });
+  }
+
+  try {
+    const client = await MongoClient.connect(connectionString, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    const db = client.db('sunday_sides_db');
+    const collection = db.collection('sides_collection');
+
+    const result = await collection.updateOne(
+      { _id: sideId },
+      { $set: updatedSide }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: 'Side not found' });
+    }
+
+    res.status(200).json({ message: 'Side updated successfully' });
+    client.close();
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -13,7 +13,6 @@ interface Bettor {
 }
 
 interface Side {
-  id: string;
   date: string;
   betType: string;
   players: Player[];
@@ -62,4 +61,20 @@ export async function postSide(newSide: Side) {
 
   const data = await response.json();
   return data;
+}
+
+export async function updateSide(id: string, newSide: Side): Promise<void> {
+  const response = await fetch(`/api/sides/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newSide),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update side');
+  }
+
+  const data = await response.json();
 }

@@ -23,6 +23,7 @@ import JuggleIcon from '../../assets/img/insert-object-new.png';
 import { formatCurrency } from '../../utils';
 import { useSelector } from 'react-redux';
 import { set } from 'mongoose';
+import { postSide, updateSide } from '../../API/SidesService';
 
 const AddBet = ({ player, onClose }) => {
   const sides = useSelector((state: any) => state.sides);
@@ -59,6 +60,10 @@ const AddBet = ({ player, onClose }) => {
   }
 
   useLockBodyScroll();
+  function updaateside(selectedSideType: any) {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <FullPageWindow style={{ position: 'absolute', top: '0' }}>
       <WindowHeader>
@@ -94,7 +99,6 @@ const AddBet = ({ player, onClose }) => {
             style={{ flexShrink: 0 }}
             width={'100%'}
             onChange={(s) => {
-              console.log(s.value);
               setSelectedSideType(s.value);
             }}
             value={selectedSideType}
@@ -259,7 +263,22 @@ const AddBet = ({ player, onClose }) => {
           primary
           fullWidth={true}
           onClick={() => {
-            console.log(currentWager, selectedSide, selectedSideType);
+            console.log(player, currentWager, selectedSide, selectedSideType);
+            const newSide = {
+              ...selectedSideType,
+              bettors: [
+                ...selectedSide.bettors,
+                {
+                  name: player,
+                  side: selectedSide,
+                  wager: currentWager,
+                  toWin:
+                    convertAmericanToDecimal(selectedSide?.action ?? -110) *
+                    currentWager,
+                },
+              ],
+            };
+            updateSide(selectedSideType._id, newSide);
           }}
         >
           Submit
