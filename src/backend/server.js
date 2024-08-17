@@ -56,6 +56,23 @@ server.post('/api/sides', async (req, res) => {
   }
 });
 
+server.get('/api/sides/clear', async (req, res) => {
+  console.log('CLEAR /api/sides');
+  try {
+    const client = await MongoClient.connect(connectionString, undefined);
+    const db = client.db('sunday_sides_db');
+    const collection = db.collection('sides_collection');
+
+    await collection.deleteMany({}); // Delete all documents
+
+    res.status(200).json({ message: 'All sides cleared' });
+    client.close();
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
