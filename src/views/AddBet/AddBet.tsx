@@ -21,6 +21,7 @@ import JuggleIcon from '../../assets/img/insert-object-new.png';
 
 // import SidesData from '../../store/sides051124.json';
 import { formatCurrency } from '../../utils';
+import { useSelector } from 'react-redux';
 
 const AddBet = ({ player, onClose }) => {
   const [searchPhrase, setSearchPhrase] = useState('');
@@ -28,7 +29,8 @@ const AddBet = ({ player, onClose }) => {
   const [selectedSideType, setSelectedSideType] = useState(undefined);
 
   const [currentWager, setCurrentWager] = useState(5);
-
+  const sides = useSelector((state: any) => state.sides);
+  console.log(sides.data);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
   };
@@ -95,32 +97,18 @@ const AddBet = ({ player, onClose }) => {
               setSelectedSideType(sideType.value);
             }}
             value={selectedSideType}
-            // options={[
-            //   // { label: '', value: undefined },
-            //   ...SidesData.map((side) => {
-            //     return {
-            //       label: `${side.betType} - ${
-            //         side.betType !== 'Proposition'
-            //           ? side.players.map((p) => p.name)
-            //           : side.prop
-            //       }${side.betType === 'Gross Score' ? `: ${side.score}` : ''}`,
-            //       value: side,
-            //     };
-            //   }),
-            // ]}
-            options={[
-              // { label: '', value: undefined },
-              ...[].map((side) => {
+            options={
+              sides?.data?.map((side) => {
                 return {
                   label: `${side.betType} - ${
                     side.betType !== 'Proposition'
-                      ? side.players.map((p) => p.name)
+                      ? side.players.map((p) => p)
                       : side.prop
                   }${side.betType === 'Gross Score' ? `: ${side.score}` : ''}`,
                   value: side,
                 };
-              }),
-            ]}
+              }) ?? []
+            }
           />
         </div>
         {selectedSideType?.betType !== 'Group Net Winner' && (
