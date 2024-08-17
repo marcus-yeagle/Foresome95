@@ -4,9 +4,6 @@ import original from 'react95/dist/themes/original';
 import { Button, GroupBox } from 'react95';
 
 const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
-  console.log(detailData);
-  console.log(detailData?.bettors.filter((b) => b.side.side === 'Under/No'));
-
   function renderBetDetailLabel() {
     if (detailData.betType === 'Gross Score') {
       return `${detailData.score} - ${detailData.betType}`;
@@ -40,23 +37,15 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                 <br />
                 {detailData.betType === 'Group Net Winner' ? (
                   <div>
-                    {detailData.sides.map((s: any, i: number) => (
-                      <Button
-                        key={i}
-                        primary={s.action < 0}
-                        disabled
-                        variant="flat"
-                        style={{ marginRight: '0.5rem' }}
-                      >
-                        {
-                          detailData?.bettors.filter(
-                            (b) => b.side.side === s.side
-                          ).length
-                        }
-                        &nbsp;&nbsp;
-                        {s.side}
-                      </Button>
-                    ))}
+                    <Button
+                      key={'group-btn-id'}
+                      primary={true}
+                      disabled
+                      variant="flat"
+                      style={{ marginRight: '0.5rem' }}
+                    >
+                      Total Bets: {detailData?.bettors.length}
+                    </Button>
                     <br />
                     <br />
                     <GroupBox variant="flat" label={'Group'}>

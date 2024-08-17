@@ -77,13 +77,19 @@ const Wallet = ({
     setSearchPhrase(e.target.value);
   };
 
+  function calculateTotalAtRisk(player: string): number {
+    return sides.data
+      .filter((s) => s.bettors.some((b) => b.name === player))
+      .reduce((total, s) => {
+        const playerWager =
+          s.bettors.find((b) => b.name === player)?.wager || 0;
+        return total + playerWager;
+      }, 0);
+  }
+
   function onPlayerSelect(p: string) {
     setSelectedPlayer(p);
-    sides.data.forEach((s) => {
-      if (s.bettors.map((b) => b.name).includes(p)) {
-        setAtRiskValue(s.bettors.filter((b) => b.name).map((b) => b.wager)[0]);
-      }
-    });
+    setAtRiskValue(calculateTotalAtRisk(p));
   }
 
   function onPlayerClear() {
@@ -157,7 +163,11 @@ const Wallet = ({
               <Well
                 style={{ flexShrink: 0, minWidth: 65, textAlign: 'center' }}
               >
-                {`0 bets(s)`}
+                {`${
+                  sides.data.filter((s) =>
+                    s.bettors.some((b) => b.name === selectedPlayer)
+                  ).length
+                } bets(s)`}
               </Well>
             </WellContainer>
           </div>
