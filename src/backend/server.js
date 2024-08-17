@@ -24,7 +24,7 @@ server.get('/api/sides', async (req, res) => {
 
     const elems = await collection.find().toArray();
     console.log(elems);
-    res.status(200).json(sides);
+    res.status(200).json(elems);
     client.close();
   } catch (error) {
     console.error('Error: ', error);
