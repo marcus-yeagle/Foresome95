@@ -22,6 +22,7 @@ import JuggleIcon from '../../assets/img/insert-object-new.png';
 // import SidesData from '../../store/sides051124.json';
 import { formatCurrency } from '../../utils';
 import { useSelector } from 'react-redux';
+import { set } from 'mongoose';
 
 const AddBet = ({ player, onClose }) => {
   const sides = useSelector((state: any) => state.sides);
@@ -30,6 +31,7 @@ const AddBet = ({ player, onClose }) => {
   const [selectedSide, setSelectedSide] = useState(undefined);
   const [selectedSideType, setSelectedSideType] = useState(undefined);
   const [currentWager, setCurrentWager] = useState(5);
+  const [yesSideBtnDisabled, setYesSideBtnDisabled] = useState(undefined);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
   };
@@ -111,36 +113,55 @@ const AddBet = ({ player, onClose }) => {
             ]}
           />
         </div>
-        {selectedSideType?.betType !== 'Group Net Winner' && (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              padding: '1rem',
-            }}
-          >
-            <div>
-              <Button
-                onClick={() => setSelectedSide(selectedSideType?.sides[0])}
-                style={{ padding: '0.75rem', minWidth: '100px' }}
-                size="lg"
-              >
-                {selectedSideType?.sides[0].side}&nbsp;&nbsp;&nbsp;
-                {`(${selectedSideType?.sides[0].action})`}
-              </Button>
+        {selectedSideType &&
+          selectedSideType?.betType !== 'Group Net Winner' && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                padding: '1rem',
+              }}
+            >
+              <div>
+                <Button
+                  onClick={() => {
+                    setYesSideBtnDisabled(!yesSideBtnDisabled);
+                    setSelectedSide(selectedSideType?.sides[0]);
+                  }}
+                  style={{
+                    padding: '0.75rem',
+                    minWidth: '100px',
+                    outline: `${
+                      !yesSideBtnDisabled ? '3px solid #008000' : 'none'
+                    }`,
+                  }}
+                  size="lg"
+                >
+                  {selectedSideType?.sides[0].side}&nbsp;&nbsp;&nbsp;
+                  {`(${selectedSideType?.sides[0].action})`}
+                </Button>
+              </div>
+              <div>
+                <Button
+                  onClick={() => {
+                    setYesSideBtnDisabled(!yesSideBtnDisabled);
+                    setSelectedSide(selectedSideType?.sides[1]);
+                  }}
+                  style={{
+                    padding: '0.75rem',
+                    minWidth: '100px',
+                    outline: `${
+                      yesSideBtnDisabled ? '3px solid #F00' : 'none'
+                    }`,
+                  }}
+                  size="lg"
+                >
+                  {selectedSideType?.sides[1].side}&nbsp;&nbsp;&nbsp;
+                  {`(${selectedSideType?.sides[1].action})`}
+                </Button>
+              </div>
             </div>
-            <div>
-              <Button
-                onClick={() => setSelectedSide(selectedSideType?.sides[1])}
-                style={{ padding: '0.75rem', minWidth: '100px' }}
-                size="lg"
-              >
-                {selectedSideType?.sides[1].side}&nbsp;&nbsp;&nbsp;
-                {`(${selectedSideType?.sides[1].action})`}
-              </Button>
-            </div>
-          </div>
-        )}
+          )}
         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
           <div style={{ padding: '1.5rem 1rem 1rem 2rem' }}>
             <Slider

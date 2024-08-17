@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import { AppDispatch, AppState } from '../../store';
@@ -77,6 +77,8 @@ const Settings = ({
   fontSize,
   setFontSize,
 }: Props) => {
+  const sides = useSelector((state: any) => state.sides);
+
   const [activeTab, setActiveTab] = useState(0);
   const [newBetType, setNewBetType] = useState('');
   const [newBetProp, setNewBetProp] = useState('');
@@ -84,6 +86,7 @@ const Settings = ({
   const [score, setScore] = useState(80);
   const [yesAction, setYesAction] = useState(-110); // Yes action state
   const [noAction, setNoAction] = useState(-110); // No action state
+  const [selectedSideType, setSelectedSideType] = useState(''); // Selected side type state
 
   const handleChange = (value: number) => setActiveTab(value);
 
@@ -105,7 +108,8 @@ const Settings = ({
     <Fullpage style={{ paddingTop: '0.5rem' }}>
       <Tabs value={activeTab} onChange={handleChange}>
         <Tab value={0}>System</Tab>
-        <Tab value={1}>Admin</Tab>
+        <Tab value={1}>Add Side</Tab>
+        <Tab value={2}>Update Side</Tab>
       </Tabs>
       <TabBody>
         {activeTab === 0 && (
@@ -383,6 +387,36 @@ const Settings = ({
                   Add Bet
                 </Button>
               </div>
+            </div>
+          </>
+        )}
+        {activeTab === 2 && (
+          <>
+            <div>
+              <small>Select Side</small>
+              <Select
+                style={{ flexShrink: 0 }}
+                width={'100%'}
+                onChange={(s) => {
+                  console.log(s.value);
+                }}
+                value={selectedSideType}
+                options={[
+                  { label: '-', value: undefined },
+                  ...sides?.data?.map((side) => {
+                    return {
+                      label: `${side.betType} - ${
+                        side.betType !== 'Proposition'
+                          ? side.players.map((p) => p)
+                          : side.prop
+                      }${
+                        side.betType === 'Gross Score' ? `: ${side.score}` : ''
+                      }`,
+                      value: side,
+                    };
+                  }),
+                ]}
+              />
             </div>
           </>
         )}
