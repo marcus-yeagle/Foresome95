@@ -5,6 +5,7 @@ import { Button, GroupBox } from 'react95';
 
 const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
   console.log(detailData);
+  console.log();
 
   function renderBetDetailLabel() {
     if (detailData.betType === 'Gross Score') {
@@ -92,6 +93,20 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                     <p style={{ lineHeight: '1.5', margin: '1rem 0 2rem' }}>
                       {detailData.prop}
                     </p>
+                    <p>
+                      Total Wagerd: $
+                      {detailData?.bettors
+                        .map((b) => b.wager)
+                        .reduce((a, b) => a + b, 0)}
+                    </p>
+                    <p>
+                      Possible Winnings: $
+                      {detailData?.bettors
+                        .map((b) => b.toWin)
+                        .reduce((a, b) => a + b, 0)
+                        .toFixed(2)}
+                    </p>
+                    <br />
                     {detailData.sides.map((s: any) => (
                       <Button
                         primary={s.action < 0}
