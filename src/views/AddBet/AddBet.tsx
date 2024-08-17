@@ -257,7 +257,10 @@ const AddBet = ({ player, onClose }) => {
           </div>
         </div>
         <Button
-          disabled={!selectedSide || !selectedSideType}
+          disabled={
+            !selectedSideType ||
+            (!selectedSide && selectedSideType?.betType !== 'Group Net Winner')
+          }
           style={{ marginTop: '1.25rem' }}
           size="lg"
           primary
