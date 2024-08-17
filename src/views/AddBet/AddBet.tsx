@@ -24,13 +24,12 @@ import { formatCurrency } from '../../utils';
 import { useSelector } from 'react-redux';
 
 const AddBet = ({ player, onClose }) => {
+  const sides = useSelector((state: any) => state.sides);
+
   const [searchPhrase, setSearchPhrase] = useState('');
   const [selectedSide, setSelectedSide] = useState(undefined);
   const [selectedSideType, setSelectedSideType] = useState(undefined);
-
   const [currentWager, setCurrentWager] = useState(5);
-  const sides = useSelector((state: any) => state.sides);
-  console.log(sides.data);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
   };
@@ -92,13 +91,14 @@ const AddBet = ({ player, onClose }) => {
           <Select
             style={{ flexShrink: 0 }}
             width={'100%'}
-            onChange={(sideType) => {
-              console.log(sideType);
-              setSelectedSideType(sideType.value);
+            onChange={(s) => {
+              console.log(s.value);
+              setSelectedSideType(s.value);
             }}
             value={selectedSideType}
-            options={
-              sides?.data?.map((side) => {
+            options={[
+              { label: '-', value: undefined },
+              ...sides?.data?.map((side) => {
                 return {
                   label: `${side.betType} - ${
                     side.betType !== 'Proposition'
@@ -107,8 +107,8 @@ const AddBet = ({ player, onClose }) => {
                   }${side.betType === 'Gross Score' ? `: ${side.score}` : ''}`,
                   value: side,
                 };
-              }) ?? []
-            }
+              }),
+            ]}
           />
         </div>
         {selectedSideType?.betType !== 'Group Net Winner' && (
@@ -192,7 +192,7 @@ const AddBet = ({ player, onClose }) => {
                   <small style={{ fontWeight: 'bold' }}>
                     {selectedSideType?.score}
                   </small>
-                  <h1
+                  {/* <h1
                     style={{
                       fontSize: '1.2rem',
                       fontWeight: 'bold',
@@ -200,7 +200,7 @@ const AddBet = ({ player, onClose }) => {
                     }}
                   >
                     {`${selectedSideType?.players[0].name} (${selectedSideType?.players[0].indx})`}
-                  </h1>
+                  </h1> */}
                   <h1
                     style={{
                       fontSize: '1.2rem',
@@ -232,6 +232,9 @@ const AddBet = ({ player, onClose }) => {
           size="lg"
           primary
           fullWidth={true}
+          onClick={() => {
+            console.log(currentWager, selectedSide);
+          }}
         >
           Submit
         </Button>

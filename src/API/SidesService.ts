@@ -4,11 +4,20 @@ interface Player {
   tee: string;
 }
 
+interface Bettor {
+  name: string;
+  action: number;
+  side: string;
+  wager: number;
+  toWin: number;
+}
+
 interface Side {
   id: string;
   date: string;
   betType: string;
   players: Player[];
+  bettors: Bettor[];
   prop?: string;
   score?: number;
   sides: any[];
