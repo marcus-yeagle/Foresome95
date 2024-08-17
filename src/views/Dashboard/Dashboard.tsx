@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Hourglass } from 'react95/dist/Hourglass/Hourglass';
+import { fetchSidesData } from '../../store/actions/sides';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchSidesData());
+  }, []);
   const [showFollowing, setShowFollowing] = useState(false);
   const data = useSelector((state: any) => state.sides);
   console.log(data);

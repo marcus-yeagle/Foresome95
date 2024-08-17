@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -12,6 +12,8 @@ import FileIcon from '../../components/FileIcon/FileIcon';
 import EyeIcon from '../../assets/img/eyeIcon.png';
 import FlexTable from '../../components/FlexTable/FlexTable';
 import BetDetailModal from '../../components/BetDetailModal/BetDetailModal';
+import { useDispatch } from 'react-redux';
+import { fetchSidesData } from '../../store/actions/sides';
 
 // TODO: proper typing for router search params
 type OrderBy = 'price' | 'change' | 'name';
@@ -19,8 +21,6 @@ type OrderBy = 'price' | 'change' | 'name';
 const SidesTable = (data: any) => {
   const [isOpened, setIsOpened] = useState(false);
   const [betDetail, setBetDetail] = useState(undefined);
-
-  console.log(data);
 
   const handleChangeOrder = (orderBy: OrderBy) => {
     const currentSearchParams = new URLSearchParams();
