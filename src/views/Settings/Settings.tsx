@@ -353,6 +353,7 @@ const Settings = ({
                       players: selectedPlayers,
                       score: score,
                       // action: 150,
+                      bettors: [],
                       sides: [
                         {
                           side:
