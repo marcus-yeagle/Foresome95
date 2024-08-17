@@ -19,10 +19,8 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
     return (
       <>
         <ul>
-          {detailData.players.map((p: any, i: number) => (
-            <li key={p + i}>
-              {p.name}&nbsp;({p.indx})
-            </li>
+          {detailData.players.map((p) => (
+            <li key={p}>{p}</li>
           ))}
         </ul>
       </>
@@ -39,9 +37,27 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
             <div style={{ minWidth: '250px' }}>
               <GroupBox variant="flat" label={renderBetDetailLabel()}>
                 {renderPlayerBetDetail()}
+                <br />
                 {detailData.betType === 'Group Net Winner' ? (
                   <div>
-                    <p>+{detailData.action}</p>
+                    {detailData.sides.map((s: any, i: number) => (
+                      <Button
+                        key={i}
+                        primary={s.action < 0}
+                        disabled
+                        variant="flat"
+                        style={{ marginRight: '0.5rem' }}
+                      >
+                        {
+                          detailData?.bettors.filter(
+                            (b) => b.side.side === s.side
+                          ).length
+                        }
+                        &nbsp;&nbsp;
+                        {s.side}
+                      </Button>
+                    ))}
+                    <br />
                     <br />
                     <GroupBox variant="flat" label={'Group'}>
                       <p>Steele, Matt</p>
@@ -62,8 +78,13 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                         variant="flat"
                         style={{ marginRight: '0.5rem' }}
                       >
-                        {s.side}&nbsp;
-                        {s.action}
+                        {
+                          detailData?.bettors.filter(
+                            (b) => b.side.side === s.side
+                          ).length
+                        }
+                        &nbsp;&nbsp;
+                        {s.side}
                       </Button>
                     ))}
                   </div>
@@ -168,7 +189,7 @@ const Modal = styled.div`
 
 const ModalBody = styled.div`
   /* position: relative; */
-  height: 210px;
+  height: 270px;
   padding: 1rem;
   border: 2px solid ${({ theme }) => theme.borderDarkest};
   color: ${({ theme }) => theme.materialText};
