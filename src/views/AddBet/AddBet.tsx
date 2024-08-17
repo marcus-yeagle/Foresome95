@@ -233,7 +233,7 @@ const AddBet = ({ player, onClose }) => {
           primary
           fullWidth={true}
           onClick={() => {
-            console.log(currentWager, selectedSide);
+            console.log(currentWager, selectedSide, selectedSideType);
           }}
         >
           Submit
