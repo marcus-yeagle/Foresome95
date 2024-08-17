@@ -5,7 +5,7 @@ import { Button, GroupBox } from 'react95';
 
 const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
   console.log(detailData);
-  console.log();
+  console.log(detailData?.bettors.filter((b) => b.side.side === 'Under/No'));
 
   function renderBetDetailLabel() {
     if (detailData.betType === 'Gross Score') {
@@ -91,7 +91,7 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                 {detailData.betType === 'Proposition' ? (
                   <div>
                     <p style={{ lineHeight: '1.5', margin: '1rem 0 2rem' }}>
-                      {detailData.prop}
+                      "{detailData.prop}""
                     </p>
                     <p>
                       Total Wagerd: $
@@ -114,8 +114,13 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                         variant="flat"
                         style={{ marginRight: '0.5rem' }}
                       >
-                        {s.side}&nbsp;
-                        {s.action}
+                        {
+                          detailData?.bettors.filter(
+                            (b) => b.side.side === s.side
+                          ).length
+                        }
+                        &nbsp;&nbsp;
+                        {s.side}
                       </Button>
                     ))}
                   </div>
