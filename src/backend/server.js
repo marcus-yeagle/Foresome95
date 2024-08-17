@@ -5,6 +5,7 @@ const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
 
 const server = express();
+server.use(express.json());
 const PORT = process.env.PORT || 4000;
 
 const sides = require('./sides051124.json');
@@ -32,14 +33,19 @@ server.get('/api/sides', async (req, res) => {
 });
 
 server.post('/api/sides', async (req, res) => {
-  console.log('POST /api/sides');
+  console.log('POST /api/sides', req.body);
   const newSide = req.body;
+
+  if (!newSide) {
+    return res.status(400).json({ message: 'Invalid request body' });
+  }
+
   try {
     const client = await MongoClient.connect(connectionString, undefined);
     const db = client.db('sunday_sides_db');
     const collection = db.collection('sides_collection');
 
-    console.log(newSide, { _id: crypto.randomUUID(), ...newSide });
+    // console.log(newSide, { _id: crypto.randomUUID(), ...newSide });
     await collection.insertOne({ _id: crypto.randomUUID(), ...newSide });
 
     res.status(201).json(newSide);

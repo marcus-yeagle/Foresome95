@@ -9,6 +9,8 @@ interface Side {
   date: string;
   betType: string;
   players: Player[];
+  prop?: string;
+  sides: any[];
 }
 
 interface SidesResponse {

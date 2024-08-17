@@ -79,8 +79,11 @@ const Settings = ({
 }: Props) => {
   const [activeTab, setActiveTab] = useState(0);
   const [newBetType, setNewBetType] = useState('');
-  const [newBetProp, setNewBetProp] = useState();
+  const [newBetProp, setNewBetProp] = useState('');
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [score, setScore] = useState(80);
+  const [yesAction, setYesAction] = useState(-110); // Yes action state
+  const [noAction, setNoAction] = useState(-110); // No action state
 
   const handleChange = (value: number) => setActiveTab(value);
 
@@ -187,24 +190,10 @@ const Settings = ({
                 />
                 <br />
                 <Radio
-                  value="rose"
-                  onChange={() => setTheme('rose')}
-                  checked={theme === 'rose'}
-                  label="🌹 Rose"
-                />
-                <br />
-                <Radio
                   value="olive"
                   onChange={() => setTheme('olive')}
                   checked={theme === 'olive'}
                   label="🍸 Olive"
-                />
-                <br />
-                <Radio
-                  value="theSixtiesUSA"
-                  onChange={() => setTheme('theSixtiesUSA')}
-                  checked={theme === 'theSixtiesUSA'}
-                  label="🌷 The 60's USA"
                 />
                 <br />
                 <Radio
@@ -233,14 +222,16 @@ const Settings = ({
                 flexDirection: 'column',
               }}
             >
-              <div>
+              <div style={{ marginBottom: '1rem' }}>
                 <small>Bet Type</small>
                 <Select
                   style={{ flexShrink: 0 }}
                   width={'100%'}
-                  onChange={(selectedOption) =>
-                    setNewBetType(selectedOption.value)
-                  }
+                  onChange={(selectedOption) => {
+                    setNewBetType(selectedOption.value);
+                    setSelectedPlayers([]);
+                    setNewBetProp('');
+                  }}
                   value={newBetType}
                   options={[
                     { value: 'Matchup', label: 'Matchup' },
@@ -252,7 +243,7 @@ const Settings = ({
               </div>
               {newBetType && newBetType !== 'Proposition' && (
                 <>
-                  <div>
+                  <div style={{ padding: '1rem, 0' }}>
                     {selectedPlayers.length > 0 && (
                       <ul>
                         {selectedPlayers.map((p, i) => (
@@ -261,11 +252,12 @@ const Settings = ({
                       </ul>
                     )}
                   </div>
-                  <div>
+                  <div style={{ marginBottom: '1rem' }}>
                     <PlayerSearch
+                      onPlayerClear={() => setSelectedPlayers([])}
                       onPlayerSelect={(p) => {
                         console.log(p);
-                        setSelectedPlayers([...selectedPlayers, p]);
+                        setSelectedPlayers([p]);
                       }}
                     />
                   </div>
@@ -276,35 +268,77 @@ const Settings = ({
                   <PlayerSearch
                     onPlayerSelect={(p) => {
                       console.log(p);
+                      setSelectedPlayers([...selectedPlayers, p]);
                     }}
                   />
                 </div>
               )}
               {newBetType === 'Proposition' && (
                 <div>
-                  <TextInput multiline rows={4} value={newBetProp} fullWidth />
+                  <TextInput
+                    multiline
+                    rows={4}
+                    value={newBetProp}
+                    onChange={(e) => {
+                      setNewBetProp(e.target.value);
+                    }}
+                    fullWidth
+                  />
                 </div>
               )}
+              {newBetType === 'Gross Score' && (
+                <GroupBox label={`Gross Score: ${score}`}>
+                  <Pad>
+                    {/* <SliderLabel>{score}</SliderLabel> */}
+                    <Slider
+                      min={58}
+                      max={110}
+                      step={1}
+                      value={score}
+                      onChange={(val) => setScore(val)}
+                      marks={[
+                        { value: 60, label: '60' },
+                        { value: 70, label: '70' },
+                        { value: 80, label: '80' },
+                        { value: 90, label: '90' },
+                        { value: 100, label: '100' },
+                        { value: 110, label: '110' },
+                      ]}
+                    />
+                  </Pad>
+                </GroupBox>
+              )}
               <div style={{ marginTop: '0.75rem' }}>
-                <small>Yes/Over Action</small>
+                <small>
+                  {newBetType !== 'Matchup'
+                    ? 'Yes/Over Action'
+                    : selectedPlayers[0]}
+                </small>
                 <br />
                 <NumberInput
-                  defaultValue={-110}
+                  defaultValue={yesAction}
                   step={10}
                   min={-1000}
                   max={1000}
                   width={'130'}
+                  onChange={(e) => setYesAction(e)}
                 />
               </div>
               <div style={{ marginTop: '0.75rem' }}>
-                <small>No/Under Action</small>
+                <small>
+                  {' '}
+                  {newBetType !== 'Matchup'
+                    ? 'No/Under Action'
+                    : selectedPlayers[1]}
+                </small>
                 <br />
                 <NumberInput
-                  defaultValue={-110}
+                  defaultValue={noAction}
                   step={10}
                   min={-1000}
                   max={1000}
                   width={'130'}
+                  onChange={(e) => setNoAction(e)}
                 />
               </div>
               <div style={{ marginTop: '0.75rem' }}>
@@ -314,20 +348,35 @@ const Settings = ({
                   onClick={() => {
                     postSide({
                       id: crypto.randomUUID(),
-                      date: '2024-11-17',
+                      date: new Date().toISOString().split('T')[0],
                       betType: newBetType,
-                      players: [
-                        {
-                          name: 'Westerheide, Pete',
-                          indx: 9,
-                          tee: 'blue',
-                        },
-                      ],
+                      players: selectedPlayers,
                       // score: null,
                       // action: 150,
-                      // sides: null,
-                      // prop: '',
+                      sides: [
+                        {
+                          side:
+                            newBetType !== 'Matchup'
+                              ? 'Over/Yes'
+                              : selectedPlayers[0],
+                          action: yesAction,
+                        },
+                        {
+                          side:
+                            newBetType !== 'Matchup'
+                              ? 'Over/Yes'
+                              : selectedPlayers[1],
+                          action: noAction,
+                        },
+                      ],
+                      prop: newBetProp,
                     });
+                    // Reset state variables
+                    setNewBetType('');
+                    setNewBetProp('');
+                    setSelectedPlayers([]);
+                    setYesAction(-110);
+                    setNoAction(-110);
                   }}
                 >
                   Add Bet
