@@ -90,11 +90,7 @@ const SidesTable = (data: any) => {
                 <TableDataCell>
                   {sideData.betType === 'Proposition'
                     ? 'All'
-                    : sideData?.players?.map(
-                        (p) =>
-                          p?.name?.substring(0, p?.name.indexOf(',')) +
-                          (sideData.players.length > 1 ? '/' : '')
-                      )}
+                    : sideData?.players?.map((p) => p)}
                 </TableDataCell>
                 <TableDataCell style={{ textAlign: 'right' }}>
                   <img

@@ -10,6 +10,7 @@ interface Side {
   betType: string;
   players: Player[];
   prop?: string;
+  score?: number;
   sides: any[];
 }
 

@@ -351,7 +351,7 @@ const Settings = ({
                       date: new Date().toISOString().split('T')[0],
                       betType: newBetType,
                       players: selectedPlayers,
-                      // score: null,
+                      score: score,
                       // action: 150,
                       sides: [
                         {
