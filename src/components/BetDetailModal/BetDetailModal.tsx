@@ -24,8 +24,6 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
     );
   }
 
-  function renderMatchupDetails() {}
-
   return (
     <ThemeProvider theme={original}>
       {isOpened && (
@@ -46,8 +44,9 @@ const BetDetailModal = ({ detailData, setIsOpened, isOpened }: any) => {
                         style={{ marginRight: '0.5rem' }}
                       >
                         {
-                          s?.bettors?.filter((b) => b.side.side === s.side)
-                            .length
+                          detailData.bettors.filter(
+                            (b) => b?.side?.side === s.side
+                          ).length
                         }
                         &nbsp;&nbsp;
                         {s.side}
